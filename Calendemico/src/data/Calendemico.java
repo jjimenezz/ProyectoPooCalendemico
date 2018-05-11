@@ -12,10 +12,13 @@ package data;
 public class Calendemico {
 
     /**
-     * @param args the command line arguments
+     * Acá estoy implementando desde el main la clase evento, y
+     * asignandole una fecha con el metodo setEventDate.
      */
     public static void main(String[] args) {
-        // TODO code application logic here
+        Evento e = new Evento("Parcial",2);
+        
+        e.setEventDate();
     }
     
 }
