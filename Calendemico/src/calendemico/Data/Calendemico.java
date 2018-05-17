@@ -3,8 +3,9 @@
  * To change this template file, choose Tools | Templates
  * and open the template in the editor.
  */
-package data;
+package calendemico.Data;
 
+import calendemico.LogicBusiness.EventManager;
 /**
  *
  * @author danie
@@ -15,7 +16,9 @@ public class Calendemico {
      * @param args the command line arguments
      */
     public static void main(String[] args) {
-        // TODO code application logic here
+       EventManager.main(args);
+       
+       
     }
     
 }
