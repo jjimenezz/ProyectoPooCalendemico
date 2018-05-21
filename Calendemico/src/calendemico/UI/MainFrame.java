@@ -7,8 +7,10 @@ package calendemico.UI;
 
 import calendemico.Data.Evento;
 import calendemico.LogicBusiness.EventManager;
+import com.toedter.calendar.JDayChooser;
 import java.awt.Color;
 import java.awt.Toolkit;
+import java.awt.event.ActionEvent;
 
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
@@ -25,6 +27,7 @@ public class MainFrame extends javax.swing.JFrame {
      */
     EventManager mainclass = new EventManager();
     static ArrayList<Evento> listadeeventos;
+    JDayChooser days;
     
     
     public MainFrame() {
@@ -36,7 +39,10 @@ public class MainFrame extends javax.swing.JFrame {
         jTextPane1.setText(str);
         setSize(600,600);
         setLocationRelativeTo(null);
-      
+        days = jCalendar1.getDayChooser();
+        
+        days.setDay(1);
+       
         
     }
     
@@ -51,7 +57,6 @@ public class MainFrame extends javax.swing.JFrame {
     private void initComponents() {
 
         jButton2 = new javax.swing.JButton();
-        jLabel1 = new javax.swing.JLabel();
         jPanel1 = new javax.swing.JPanel();
         jButton1 = new javax.swing.JButton();
         jCalendar1 = new com.toedter.calendar.JCalendar();
@@ -62,17 +67,14 @@ public class MainFrame extends javax.swing.JFrame {
         jLabel3 = new javax.swing.JLabel();
         jScrollPane3 = new javax.swing.JScrollPane();
         jTextPane2 = new javax.swing.JTextPane();
+        jLabel1 = new javax.swing.JLabel();
 
         jButton2.setText("jButton2");
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
 
-        jLabel1.setFont(new java.awt.Font("Dubai", 1, 48)); // NOI18N
-        jLabel1.setForeground(new java.awt.Color(102, 102, 255));
-        jLabel1.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
-        jLabel1.setText("Caléndemico");
-        getContentPane().add(jLabel1, java.awt.BorderLayout.PAGE_START);
-
+        jPanel1.setMinimumSize(new java.awt.Dimension(700, 370));
+        jPanel1.setPreferredSize(new java.awt.Dimension(700, 370));
         jPanel1.setLayout(new org.netbeans.lib.awtextra.AbsoluteLayout());
 
         jButton1.setFont(new java.awt.Font("Dubai", 1, 14)); // NOI18N
@@ -82,22 +84,22 @@ public class MainFrame extends javax.swing.JFrame {
                 jButton1ActionPerformed(evt);
             }
         });
-        jPanel1.add(jButton1, new org.netbeans.lib.awtextra.AbsoluteConstraints(250, 180, -1, -1));
+        jPanel1.add(jButton1, new org.netbeans.lib.awtextra.AbsoluteConstraints(420, 280, -1, -1));
 
         jCalendar1.setFont(new java.awt.Font("Dubai", 1, 14)); // NOI18N
-        jPanel1.add(jCalendar1, new org.netbeans.lib.awtextra.AbsoluteConstraints(180, 0, -1, 190));
+        jPanel1.add(jCalendar1, new org.netbeans.lib.awtextra.AbsoluteConstraints(370, 80, -1, 190));
 
         jTextPane1.setBackground(new java.awt.Color(240, 240, 240));
         jTextPane1.setFont(new java.awt.Font("Dubai", 1, 12)); // NOI18N
         jTextPane1.setForeground(new java.awt.Color(0, 153, 204));
         jScrollPane1.setViewportView(jTextPane1);
 
-        jPanel1.add(jScrollPane1, new org.netbeans.lib.awtextra.AbsoluteConstraints(460, 40, 100, 200));
+        jPanel1.add(jScrollPane1, new org.netbeans.lib.awtextra.AbsoluteConstraints(770, 160, 100, 200));
 
         jLabel2.setFont(new java.awt.Font("Dubai", 1, 14)); // NOI18N
         jLabel2.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
         jLabel2.setText("Eventos Añadidos");
-        jPanel1.add(jLabel2, new org.netbeans.lib.awtextra.AbsoluteConstraints(460, 10, -1, -1));
+        jPanel1.add(jLabel2, new org.netbeans.lib.awtextra.AbsoluteConstraints(760, 100, -1, -1));
 
         jButton3.setFont(new java.awt.Font("Dubai", 1, 14)); // NOI18N
         jButton3.setText("Mostrar Eventos");
@@ -106,19 +108,25 @@ public class MainFrame extends javax.swing.JFrame {
                 jButton3ActionPerformed(evt);
             }
         });
-        jPanel1.add(jButton3, new org.netbeans.lib.awtextra.AbsoluteConstraints(247, 220, -1, -1));
+        jPanel1.add(jButton3, new org.netbeans.lib.awtextra.AbsoluteConstraints(420, 330, -1, -1));
 
         jLabel3.setFont(new java.awt.Font("Dubai", 1, 14)); // NOI18N
         jLabel3.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
         jLabel3.setText("Lista de Eventos");
-        jPanel1.add(jLabel3, new org.netbeans.lib.awtextra.AbsoluteConstraints(30, 20, -1, 10));
+        jPanel1.add(jLabel3, new org.netbeans.lib.awtextra.AbsoluteConstraints(200, 130, -1, 10));
 
         jTextPane2.setBackground(new java.awt.Color(240, 240, 240));
         jTextPane2.setFont(new java.awt.Font("Dubai", 1, 12)); // NOI18N
         jTextPane2.setForeground(new java.awt.Color(51, 102, 255));
         jScrollPane3.setViewportView(jTextPane2);
 
-        jPanel1.add(jScrollPane3, new org.netbeans.lib.awtextra.AbsoluteConstraints(20, 50, 120, 200));
+        jPanel1.add(jScrollPane3, new org.netbeans.lib.awtextra.AbsoluteConstraints(200, 170, 120, 200));
+
+        jLabel1.setFont(new java.awt.Font("Dubai", 1, 48)); // NOI18N
+        jLabel1.setForeground(new java.awt.Color(102, 102, 255));
+        jLabel1.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
+        jLabel1.setText("Caléndemico");
+        jPanel1.add(jLabel1, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 0, 906, -1));
 
         getContentPane().add(jPanel1, java.awt.BorderLayout.CENTER);
         pack();
@@ -133,7 +141,13 @@ public class MainFrame extends javax.swing.JFrame {
         this.dispose();
         
     }//GEN-LAST:event_jButton1ActionPerformed
-
+     private void jButtonDaysActionPerformed(java.awt.event.ActionEvent evt) {                                         
+        
+        AgregarEvento d = new AgregarEvento();
+        d.setVisible(true);
+        this.dispose();
+        
+    }
     private void jButton3ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton3ActionPerformed
        
        String Eventos = "";
