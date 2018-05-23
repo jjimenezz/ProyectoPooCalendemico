@@ -27,7 +27,7 @@ public class MainFrame extends javax.swing.JFrame {
      */
     EventManager mainclass = new EventManager();
     static ArrayList<Evento> listadeeventos = new ArrayList(){};
-    JDayChooser days;
+    
     
     
     public MainFrame() {
@@ -36,10 +36,12 @@ public class MainFrame extends javax.swing.JFrame {
         setIcon();
         
         String str = mainclass.getDateText();
+        jTextPane2.setEditable(false);
         jTextPane1.setText(str);
         setSize(800,600);
         setLocationRelativeTo(null);
-        days = jCalendar1.getDayChooser();
+        jCalendar1.getDayChooser().setDayBordersVisible(false);
+        
         
        
         
@@ -185,7 +187,7 @@ public class MainFrame extends javax.swing.JFrame {
        i++;
        }
        jTextPane2.setText(Eventos);
-       days.setToolTipText(jTextPane2.getText());
+       
        
       
         

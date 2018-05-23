@@ -8,6 +8,7 @@ package calendemico.UI;
 import calendemico.LogicBusiness.EventManager;
 import java.text.SimpleDateFormat;
 import java.util.Date;
+import javax.swing.JOptionPane;
 
 /**
  *
@@ -24,6 +25,7 @@ public class AgregarEvento extends javax.swing.JFrame {
         setLocationRelativeTo(null);
         setTitle("Agregar Evento");
         jDateChooser1.setMinSelectableDate(d);
+        
         
     }
 
@@ -168,7 +170,7 @@ public class AgregarEvento extends javax.swing.JFrame {
     }// </editor-fold>//GEN-END:initComponents
 
     private void jButton1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton1ActionPerformed
-        String name = jTextField1.getText();
+        try{String name = jTextField1.getText();
         String tipo =  jComboBox1.getSelectedItem().toString();
         Date date = jDateChooser1.getDate();
         
@@ -178,6 +180,11 @@ public class AgregarEvento extends javax.swing.JFrame {
         MainFrame d = new MainFrame();
         d.setVisible(true);
         this.dispose();
+        }
+        catch(NullPointerException n){
+                JOptionPane.showMessageDialog(this, "Datos Incorrectos", "Error", 0);
+                
+                }
     }//GEN-LAST:event_jButton1ActionPerformed
 
     private void jTextField1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jTextField1ActionPerformed
