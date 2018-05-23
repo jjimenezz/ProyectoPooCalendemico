@@ -7,6 +7,7 @@ package calendemico.UI;
 
 import calendemico.Data.Evento;
 import calendemico.LogicBusiness.EventManager;
+import calendemico.LogicBusiness.TimeLine;
 import com.toedter.calendar.JDayChooser;
 import java.awt.Color;
 import java.awt.Toolkit;
@@ -15,6 +16,7 @@ import java.awt.event.ActionEvent;
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.Date;
+import javax.swing.DefaultListModel;
 
 /**
  *
@@ -26,7 +28,9 @@ public class MainFrame extends javax.swing.JFrame {
      * Creates new form diseño11
      */
     EventManager mainclass = new EventManager();
+    TimeLine tl = new TimeLine();
     static ArrayList<Evento> listadeeventos = new ArrayList(){};
+    static ArrayList<Evento> leOrdenados = new ArrayList(){};
     JDayChooser days;
     
     
@@ -41,9 +45,7 @@ public class MainFrame extends javax.swing.JFrame {
         setLocationRelativeTo(null);
         days = jCalendar1.getDayChooser();
         
-       
-        
-    }
+        }
     
 
     /**
@@ -66,7 +68,14 @@ public class MainFrame extends javax.swing.JFrame {
         jLabel3 = new javax.swing.JLabel();
         jPanel3 = new javax.swing.JPanel();
         jLabel4 = new javax.swing.JLabel();
+        jSeparator1 = new javax.swing.JSeparator();
+        jSeparator2 = new javax.swing.JSeparator();
+        jScrollPane1 = new javax.swing.JScrollPane();
+        jList1 = new javax.swing.JList<>();
+        jSeparator3 = new javax.swing.JSeparator();
+        jSeparator4 = new javax.swing.JSeparator();
         jCalendar1 = new com.toedter.calendar.JCalendar();
+        jButton4 = new javax.swing.JButton();
 
         jButton2.setText("jButton2");
 
@@ -121,11 +130,36 @@ public class MainFrame extends javax.swing.JFrame {
         jLabel4.setFont(new java.awt.Font("Dubai", 1, 24)); // NOI18N
         jLabel4.setText("Lista de Eventos");
         jPanel3.add(jLabel4);
+        jPanel3.add(jSeparator1);
+        jPanel3.add(jSeparator2);
 
-        jPanel1.add(jPanel3, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 10, 220, 320));
+        jList1.setBackground(new java.awt.Color(204, 204, 255));
+        jList1.setBorder(javax.swing.BorderFactory.createLineBorder(new java.awt.Color(0, 0, 0)));
+        jList1.setSelectionMode(javax.swing.ListSelectionModel.SINGLE_SELECTION);
+        jList1.setCursor(new java.awt.Cursor(java.awt.Cursor.DEFAULT_CURSOR));
+        jList1.addListSelectionListener(new javax.swing.event.ListSelectionListener() {
+            public void valueChanged(javax.swing.event.ListSelectionEvent evt) {
+                jList1ValueChanged(evt);
+            }
+        });
+        jScrollPane1.setViewportView(jList1);
+
+        jPanel3.add(jScrollPane1);
+        jPanel3.add(jSeparator3);
+        jPanel3.add(jSeparator4);
+
+        jPanel1.add(jPanel3, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 10, 220, 270));
         jPanel3.getAccessibleContext().setAccessibleParent(jPanel3);
 
         jPanel1.add(jCalendar1, new org.netbeans.lib.awtextra.AbsoluteConstraints(224, 53, 300, 230));
+
+        jButton4.setText("Recargar");
+        jButton4.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jButton4ActionPerformed(evt);
+            }
+        });
+        jPanel1.add(jButton4, new org.netbeans.lib.awtextra.AbsoluteConstraints(70, 290, -1, -1));
 
         getContentPane().add(jPanel1, java.awt.BorderLayout.CENTER);
         pack();
@@ -152,11 +186,11 @@ public class MainFrame extends javax.swing.JFrame {
        String Eventos = "";
        int i = 1;
        listadeeventos = EventManager.getListadeeventos();
-       SimpleDateFormat format = new SimpleDateFormat("EEEE, d 'de' MMMM 'del' yyyy");
+       SimpleDateFormat format2 = new SimpleDateFormat("EEEE, d 'de' MMMM 'del' yyyy");
        for(Evento e : listadeeventos){
        Eventos = Eventos + "\n" + i + ". Evento: " + e.getNombre();
        
-       Eventos = Eventos + "\nFecha: " + format.format(e.getEventDate());
+       Eventos = Eventos + "\nFecha: " + format2.format(e.getEventDate());
        i++;
        }
        jLabel3.setText(Eventos);
@@ -165,6 +199,23 @@ public class MainFrame extends javax.swing.JFrame {
       
         
     }//GEN-LAST:event_jButton3ActionPerformed
+
+    private void jButton4ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton4ActionPerformed
+        
+        String info;
+        leOrdenados = TimeLine.getListaDeEventosOrdenados();
+        DefaultListModel modelo = new DefaultListModel();
+        for(Evento e : leOrdenados){
+            info = e.getNombre() + e.getTipo() + e.getEventDate();
+            modelo.addElement(info);
+       }
+        jList1.setModel(modelo);
+        
+    }//GEN-LAST:event_jButton4ActionPerformed
+
+    private void jList1ValueChanged(javax.swing.event.ListSelectionEvent evt) {//GEN-FIRST:event_jList1ValueChanged
+        // TODO add your handling code here:
+    }//GEN-LAST:event_jList1ValueChanged
 
     /**
      * @param args the command line arguments
@@ -206,15 +257,22 @@ public class MainFrame extends javax.swing.JFrame {
     private javax.swing.JButton jButton1;
     private javax.swing.JButton jButton2;
     private javax.swing.JButton jButton3;
+    private javax.swing.JButton jButton4;
     private com.toedter.calendar.JCalendar jCalendar1;
     private com.toedter.calendar.JCalendar jCalendar3;
     private javax.swing.JLabel jLabel1;
     private javax.swing.JLabel jLabel2;
     private javax.swing.JLabel jLabel3;
     private javax.swing.JLabel jLabel4;
+    private javax.swing.JList<String> jList1;
     private javax.swing.JPanel jPanel1;
     private javax.swing.JPanel jPanel2;
     private javax.swing.JPanel jPanel3;
+    private javax.swing.JScrollPane jScrollPane1;
+    private javax.swing.JSeparator jSeparator1;
+    private javax.swing.JSeparator jSeparator2;
+    private javax.swing.JSeparator jSeparator3;
+    private javax.swing.JSeparator jSeparator4;
     // End of variables declaration//GEN-END:variables
 
     private void setIcon() {

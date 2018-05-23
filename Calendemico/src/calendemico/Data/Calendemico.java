@@ -6,6 +6,7 @@
 package calendemico.Data;
 
 import calendemico.LogicBusiness.EventManager;
+import calendemico.LogicBusiness.TimeLine;
 /**
  *
  * @author danie
@@ -17,7 +18,7 @@ public class Calendemico {
      */
     public static void main(String[] args) {
        EventManager.main(args);
-       
+       TimeLine.getListaDeEventosOrdenados();
        
     }
     
