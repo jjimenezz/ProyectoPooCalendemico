@@ -43,16 +43,8 @@ public class EventManager {
             + g.get(Calendar.YEAR);
         System.out.println(txt);
     
-        
-    
-    
-    
     }
 
-    
-    
-    
-    
     public String getDateText(){
     return txt;
     }
