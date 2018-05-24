@@ -17,6 +17,10 @@ public class Evento {
         this.d = d;
     }
 
+    public Evento() {
+        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
+    }
+
     public String getNombre() {
         return nombre;
     }

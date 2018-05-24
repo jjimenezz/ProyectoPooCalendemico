@@ -41,7 +41,7 @@ public class MainFrame extends javax.swing.JFrame {
         
         String str = mainclass.getDateText();
         jLabel3.setText(str);
-        setSize(790,400);
+        setSize(900,400);
         setLocationRelativeTo(null);
         days = jCalendar1.getDayChooser();
         
@@ -86,30 +86,32 @@ public class MainFrame extends javax.swing.JFrame {
         jPanel1.setPreferredSize(new java.awt.Dimension(700, 370));
         jPanel1.setLayout(new org.netbeans.lib.awtextra.AbsoluteLayout());
 
-        jButton1.setBackground(new java.awt.Color(204, 204, 255));
+        jButton1.setBackground(new java.awt.Color(0, 51, 102));
         jButton1.setFont(new java.awt.Font("Dubai", 1, 14)); // NOI18N
-        jButton1.setText("Agregar Evento");
+        jButton1.setIcon(new javax.swing.ImageIcon("C:\\Users\\Magnert\\Desktop\\lButton3.png")); // NOI18N
+        jButton1.setBorder(javax.swing.BorderFactory.createBevelBorder(javax.swing.border.BevelBorder.RAISED));
         jButton1.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 jButton1ActionPerformed(evt);
             }
         });
-        jPanel1.add(jButton1, new org.netbeans.lib.awtextra.AbsoluteConstraints(230, 290, -1, -1));
+        jPanel1.add(jButton1, new org.netbeans.lib.awtextra.AbsoluteConstraints(400, 290, 100, 30));
 
-        jButton3.setBackground(new java.awt.Color(204, 204, 255));
+        jButton3.setBackground(new java.awt.Color(0, 51, 102));
         jButton3.setFont(new java.awt.Font("Dubai", 1, 14)); // NOI18N
-        jButton3.setText("Mostrar Eventos");
+        jButton3.setIcon(new javax.swing.ImageIcon("C:\\Users\\Magnert\\Desktop\\lButton4.png")); // NOI18N
+        jButton3.setBorder(null);
         jButton3.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 jButton3ActionPerformed(evt);
             }
         });
-        jPanel1.add(jButton3, new org.netbeans.lib.awtextra.AbsoluteConstraints(370, 290, 150, -1));
+        jPanel1.add(jButton3, new org.netbeans.lib.awtextra.AbsoluteConstraints(690, 290, 100, 30));
 
         jLabel1.setFont(new java.awt.Font("Edwardian Script ITC", 1, 48)); // NOI18N
         jLabel1.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
         jLabel1.setText("Caléndemico");
-        jPanel1.add(jLabel1, new org.netbeans.lib.awtextra.AbsoluteConstraints(-10, 0, 770, 40));
+        jPanel1.add(jLabel1, new org.netbeans.lib.awtextra.AbsoluteConstraints(50, 0, 770, 40));
 
         jPanel2.setBackground(new java.awt.Color(204, 204, 255));
 
@@ -120,22 +122,24 @@ public class MainFrame extends javax.swing.JFrame {
         jPanel2.add(jLabel2);
 
         jLabel3.setBackground(new java.awt.Color(204, 204, 255));
+        jLabel3.setFont(new java.awt.Font("Palatino Linotype", 2, 12)); // NOI18N
         jLabel3.setText("jLabel3");
         jPanel2.add(jLabel3);
 
-        jPanel1.add(jPanel2, new org.netbeans.lib.awtextra.AbsoluteConstraints(540, 10, 220, 330));
+        jPanel1.add(jPanel2, new org.netbeans.lib.awtextra.AbsoluteConstraints(600, 10, 260, 270));
 
         jPanel3.setBackground(new java.awt.Color(204, 204, 255));
 
         jLabel4.setFont(new java.awt.Font("Dubai", 1, 24)); // NOI18N
-        jLabel4.setText("Lista de Eventos");
+        jLabel4.setText("Proximos Eventos");
         jPanel3.add(jLabel4);
         jPanel3.add(jSeparator1);
         jPanel3.add(jSeparator2);
 
         jList1.setBackground(new java.awt.Color(204, 204, 255));
-        jList1.setBorder(javax.swing.BorderFactory.createLineBorder(new java.awt.Color(0, 0, 0)));
+        jList1.setFont(new java.awt.Font("Palatino Linotype", 2, 10)); // NOI18N
         jList1.setSelectionMode(javax.swing.ListSelectionModel.SINGLE_SELECTION);
+        jList1.setAutoscrolls(false);
         jList1.setCursor(new java.awt.Cursor(java.awt.Cursor.DEFAULT_CURSOR));
         jList1.addListSelectionListener(new javax.swing.event.ListSelectionListener() {
             public void valueChanged(javax.swing.event.ListSelectionEvent evt) {
@@ -148,18 +152,21 @@ public class MainFrame extends javax.swing.JFrame {
         jPanel3.add(jSeparator3);
         jPanel3.add(jSeparator4);
 
-        jPanel1.add(jPanel3, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 10, 220, 270));
+        jPanel1.add(jPanel3, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 10, 280, 270));
         jPanel3.getAccessibleContext().setAccessibleParent(jPanel3);
 
-        jPanel1.add(jCalendar1, new org.netbeans.lib.awtextra.AbsoluteConstraints(224, 53, 300, 230));
+        jCalendar1.setBackground(new java.awt.Color(204, 204, 255));
+        jPanel1.add(jCalendar1, new org.netbeans.lib.awtextra.AbsoluteConstraints(290, 50, 300, 230));
 
-        jButton4.setText("Recargar");
+        jButton4.setBackground(new java.awt.Color(0, 51, 102));
+        jButton4.setIcon(new javax.swing.ImageIcon("C:\\Users\\Magnert\\Desktop\\lButton4.png")); // NOI18N
+        jButton4.setBorder(null);
         jButton4.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 jButton4ActionPerformed(evt);
             }
         });
-        jPanel1.add(jButton4, new org.netbeans.lib.awtextra.AbsoluteConstraints(70, 290, -1, -1));
+        jPanel1.add(jButton4, new org.netbeans.lib.awtextra.AbsoluteConstraints(80, 290, 100, 30));
 
         getContentPane().add(jPanel1, java.awt.BorderLayout.CENTER);
         pack();
@@ -201,12 +208,12 @@ public class MainFrame extends javax.swing.JFrame {
     }//GEN-LAST:event_jButton3ActionPerformed
 
     private void jButton4ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton4ActionPerformed
-        
+        tl.createTimeLine();
         String info;
         leOrdenados = TimeLine.getListaDeEventosOrdenados();
         DefaultListModel modelo = new DefaultListModel();
         for(Evento e : leOrdenados){
-            info = e.getNombre() + e.getTipo() + e.getEventDate();
+            info = "NOMBRE: " + e.getNombre() + " TIPO: " + e.getTipo() + " FECHA: " + e.getEventDate();
             modelo.addElement(info);
        }
         jList1.setModel(modelo);
