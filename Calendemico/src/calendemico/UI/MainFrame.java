@@ -45,9 +45,9 @@ public class MainFrame extends javax.swing.JFrame {
         setSize(1310,550);
   
         String str = mainclass.getDateText();
-        String[][] Eventos = mainclass.showEvents();
+        Object[][] Eventos = mainclass.showEvents();
         jTable2.setModel(new javax.swing.table.DefaultTableModel(Eventos,
-    new String [] {
+    new String [] {"ID",
         "Nombre", "Tipo de Evento", "Fecha", "Alarma"
     }));
         jTable2.getTableHeader().setBackground(new Color(150,150,150));
@@ -97,6 +97,7 @@ public class MainFrame extends javax.swing.JFrame {
         jSeparator2 = new javax.swing.JPopupMenu.Separator();
         btnAddEvent = new javax.swing.JMenuItem();
         menuEditEvent = new javax.swing.JMenu();
+        btnEditEvent = new javax.swing.JMenuItem();
         btnRemoveEvent = new javax.swing.JMenu();
 
         jTable1.setModel(new javax.swing.table.DefaultTableModel(
@@ -240,6 +241,15 @@ public class MainFrame extends javax.swing.JFrame {
         jMenuBar1.add(menuAddEvent);
 
         menuEditEvent.setText("Editar Evento");
+
+        btnEditEvent.setText("Editar...");
+        btnEditEvent.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btnEditEventActionPerformed(evt);
+            }
+        });
+        menuEditEvent.add(btnEditEvent);
+
         jMenuBar1.add(menuEditEvent);
 
         btnRemoveEvent.setText("Eliminar Evento");
@@ -263,6 +273,12 @@ public class MainFrame extends javax.swing.JFrame {
         d.setVisible(true);
         this.dispose();
     }//GEN-LAST:event_btnAddEventActionPerformed
+
+    private void btnEditEventActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnEditEventActionPerformed
+        EditarEvento e = new EditarEvento();
+        e.setVisible(true);
+        this.dispose();
+    }//GEN-LAST:event_btnEditEventActionPerformed
 
     /**
      * @param args the command line arguments
@@ -295,6 +311,7 @@ public class MainFrame extends javax.swing.JFrame {
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JMenuItem btnAddEvent;
+    private javax.swing.JMenuItem btnEditEvent;
     private javax.swing.JMenu btnHome;
     private javax.swing.JMenu btnRemoveEvent;
     private javax.swing.JButton jButton2;

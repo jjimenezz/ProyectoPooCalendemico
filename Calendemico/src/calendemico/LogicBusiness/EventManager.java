@@ -46,6 +46,20 @@ public class EventManager {
     }
     
     }
+    public boolean editEvent(int id ,String name, String tipo, Date d, int hr, int min){
+    if(name == null||tipo == null||d == null||hr >= 24 || min >= 60){
+        return false;
+    }   
+    else{
+        Date daterevised = this.setAlarm(d, hr, min);
+        
+        listadeeventos.get(id).setNombre(name);
+        listadeeventos.get(id).setTipo(tipo);
+        listadeeventos.get(id).setEventDate(daterevised);
+        return true;
+    }
+    
+    }
 
     public Date setAlarm(Date d, int hr, int min){
     
@@ -69,22 +83,24 @@ public class EventManager {
     txt = txt + "Para el " + format.format(e.getEventDate());
     }
     
-    public String[][] showEvents(){
-    String[][] listaeventos = new String[(listadeeventos.size())][4];
+    public Object[][] showEvents(){
+    Object[][] listaeventos = new String[(listadeeventos.size())][5];
        
        int i = 0;
-       
+       int id = 1;
        SimpleDateFormat format = new SimpleDateFormat("EEEE, d 'de' MMMM 'del' yyyy");
        SimpleDateFormat format2 = new SimpleDateFormat("hh':'mm' 'a");
        for(Evento e : listadeeventos){
-           
-       listaeventos[i][0] = e.getNombre();
-       listaeventos[i][1] = e.getTipo();
-       listaeventos[i][2] = format.format(e.getEventDate());
-       listaeventos[i][3] = format2.format(e.getEventDate());
+        
+       listaeventos[i][0] = String.valueOf(id);    
+       listaeventos[i][1] = e.getNombre();
+       listaeventos[i][2] = e.getTipo();
+       listaeventos[i][3] = format.format(e.getEventDate());
+       listaeventos[i][4] = format2.format(e.getEventDate());
        
        
        i++;
+       id++;
        }
        
        return listaeventos;

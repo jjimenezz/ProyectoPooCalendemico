@@ -3,7 +3,7 @@
 package calendemico.Data;
 
 
-import java.text.SimpleDateFormat;
+
 import java.util.*;
 
 public class Evento {
@@ -19,6 +19,10 @@ public class Evento {
 
     public String getNombre() {
         return nombre;
+    }
+
+    public void setEventDate(Date d) {
+        this.d = d;
     }
 
     public void setNombre(String nombre) {
