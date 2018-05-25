@@ -6,6 +6,7 @@
 package calendemico.Data;
 
 import calendemico.LogicBusiness.EventManager;
+import javax.swing.UnsupportedLookAndFeelException;
 /**
  *
  * @author danie
@@ -15,7 +16,7 @@ public class Calendemico {
     /**
      * @param args the command line arguments
      */
-    public static void main(String[] args) {
+    public static void main(String[] args) throws UnsupportedLookAndFeelException {
        EventManager.main(args);
        
        
