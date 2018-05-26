@@ -12,6 +12,8 @@ import java.awt.Event;
 import java.awt.Font;
 import java.awt.Toolkit;
 import java.awt.event.MouseAdapter;
+import java.awt.event.MouseEvent;
+
 import java.util.ArrayList;
 import java.util.Date;
 import java.util.logging.Level;
@@ -27,8 +29,8 @@ public class EditarEvento extends javax.swing.JFrame {
 
     static ArrayList<Evento> listadeeventos;
     EventManager mainclass = new EventManager();
-    String name;
-    int id;
+    static String name;
+    static int id;
     /**
      * Creates new form EditarEvento
      */
@@ -38,7 +40,7 @@ public class EditarEvento extends javax.swing.JFrame {
         setIcon();
         setSize(1000,600);
         setLocationRelativeTo(null);
-  
+        
         Object[][] Eventos = mainclass.showEvents();
         jTable2.setModel(new javax.swing.table.DefaultTableModel(Eventos,
     new String [] {"ID",
@@ -46,20 +48,20 @@ public class EditarEvento extends javax.swing.JFrame {
     }));
         jSpinField1.setVisible(false);
         jSpinField2.setVisible(false);
+        jSpinField1.setMinimum(0);
+        jSpinField2.setMaximum(59);
+        jSpinField1.setMaximum(23);
+        jSpinField2.setMinimum(0);
         Date d = new Date();
         jDateChooser1.setMinSelectableDate(d);
         jTable2.getTableHeader().setBackground(new Color(150,150,150));
         jTable2.getTableHeader().setFont(new Font("Dubai",1,14));
-        jTable2.addMouseListener(new MouseAdapter(){
-        public void mouseClicked(Event e){
-        int i = jTable2.getSelectedRow();
-        id = (int) jTable2.getValueAt(i, 0);
-        name = jTable2.getValueAt(i, 1).toString();
-        jTextField1.setText(name);
-        
-        
-        
-        }
+        jTable2.addMouseListener(new MouseAdapter() {
+            @Override
+            public void mouseClicked(MouseEvent me) {
+                tableMouseClicked(me);
+            }
+
         });
         
     }
@@ -91,13 +93,19 @@ public class EditarEvento extends javax.swing.JFrame {
         jLabel4 = new javax.swing.JLabel();
         jDateChooser1 = new com.toedter.calendar.JDateChooser();
         jButton1 = new javax.swing.JButton();
+        jLabel7 = new javax.swing.JLabel();
+        jScrollPane2 = new javax.swing.JScrollPane();
+        NotificateEditEvent = new javax.swing.JTextPane();
         jMenuBar1 = new javax.swing.JMenuBar();
         btnHome = new javax.swing.JMenu();
         jMenuItem1 = new javax.swing.JMenuItem();
         menuAddEvent = new javax.swing.JMenu();
         jSeparator2 = new javax.swing.JPopupMenu.Separator();
+        btnAddEvent = new javax.swing.JMenuItem();
         menuEditEvent = new javax.swing.JMenu();
+        btnEditEvent = new javax.swing.JMenuItem();
         btnRemoveEvent = new javax.swing.JMenu();
+        btnDelete = new javax.swing.JMenuItem();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
         setBackground(new java.awt.Color(55, 55, 55));
@@ -142,14 +150,14 @@ public class EditarEvento extends javax.swing.JFrame {
         jLabel2.setFont(new java.awt.Font("Dubai", 1, 14)); // NOI18N
         jLabel2.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
         jLabel2.setText("Nombre del Evento");
-        jPanel2.add(jLabel2, new org.netbeans.lib.awtextra.AbsoluteConstraints(10, 30, 243, -1));
+        jPanel2.add(jLabel2, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 40, 240, -1));
 
         jTextField1.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 jTextField1ActionPerformed(evt);
             }
         });
-        jPanel2.add(jTextField1, new org.netbeans.lib.awtextra.AbsoluteConstraints(30, 80, 183, 34));
+        jPanel2.add(jTextField1, new org.netbeans.lib.awtextra.AbsoluteConstraints(30, 100, 190, 34));
 
         jCheckBox1.setFont(new java.awt.Font("Dubai", 1, 14)); // NOI18N
         jCheckBox1.setText("Desea una Alarma?");
@@ -176,7 +184,7 @@ public class EditarEvento extends javax.swing.JFrame {
                         .addComponent(jLabel5)
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                         .addComponent(jSpinField1, javax.swing.GroupLayout.PREFERRED_SIZE, 45, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 12, Short.MAX_VALUE)
                         .addComponent(jLabel6)
                         .addGap(3, 3, 3)
                         .addComponent(jSpinField2, javax.swing.GroupLayout.PREFERRED_SIZE, 45, javax.swing.GroupLayout.PREFERRED_SIZE))
@@ -188,9 +196,9 @@ public class EditarEvento extends javax.swing.JFrame {
         jPanel3Layout.setVerticalGroup(
             jPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(jPanel3Layout.createSequentialGroup()
-                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                .addContainerGap()
                 .addComponent(jCheckBox1)
-                .addGap(18, 18, 18)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 36, Short.MAX_VALUE)
                 .addGroup(jPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addComponent(jLabel5, javax.swing.GroupLayout.Alignment.TRAILING)
                     .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
@@ -199,12 +207,12 @@ public class EditarEvento extends javax.swing.JFrame {
                     .addComponent(jLabel6, javax.swing.GroupLayout.Alignment.TRAILING)))
         );
 
-        jPanel2.add(jPanel3, new org.netbeans.lib.awtextra.AbsoluteConstraints(380, 120, -1, -1));
+        jPanel2.add(jPanel3, new org.netbeans.lib.awtextra.AbsoluteConstraints(260, 170, 200, 100));
 
         jLabel3.setFont(new java.awt.Font("Dubai", 1, 14)); // NOI18N
         jLabel3.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
         jLabel3.setText("Tipo");
-        jPanel2.add(jLabel3, new org.netbeans.lib.awtextra.AbsoluteConstraints(380, 30, 157, 14));
+        jPanel2.add(jLabel3, new org.netbeans.lib.awtextra.AbsoluteConstraints(280, 40, 157, 20));
 
         jComboBox1.setFont(new java.awt.Font("Dubai", 1, 14)); // NOI18N
         jComboBox1.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "Examen", "Conferencia", "Tema", "Proyecto", "Tarea" }));
@@ -213,13 +221,13 @@ public class EditarEvento extends javax.swing.JFrame {
                 jComboBox1ActionPerformed(evt);
             }
         });
-        jPanel2.add(jComboBox1, new org.netbeans.lib.awtextra.AbsoluteConstraints(380, 70, 192, -1));
+        jPanel2.add(jComboBox1, new org.netbeans.lib.awtextra.AbsoluteConstraints(270, 100, 180, -1));
 
         jLabel4.setFont(new java.awt.Font("Dubai", 1, 14)); // NOI18N
         jLabel4.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
         jLabel4.setText("Fecha del Evento");
-        jPanel2.add(jLabel4, new org.netbeans.lib.awtextra.AbsoluteConstraints(40, 140, 164, 40));
-        jPanel2.add(jDateChooser1, new org.netbeans.lib.awtextra.AbsoluteConstraints(30, 210, 190, 31));
+        jPanel2.add(jLabel4, new org.netbeans.lib.awtextra.AbsoluteConstraints(40, 170, 164, 40));
+        jPanel2.add(jDateChooser1, new org.netbeans.lib.awtextra.AbsoluteConstraints(30, 240, 190, 31));
 
         jButton1.setFont(new java.awt.Font("Dubai", 1, 14)); // NOI18N
         jButton1.setText("Validar Datos");
@@ -228,11 +236,26 @@ public class EditarEvento extends javax.swing.JFrame {
                 jButton1ActionPerformed(evt);
             }
         });
-        jPanel2.add(jButton1, new org.netbeans.lib.awtextra.AbsoluteConstraints(250, 280, -1, -1));
+        jPanel2.add(jButton1, new org.netbeans.lib.awtextra.AbsoluteConstraints(200, 350, -1, -1));
 
         jScrollPane1.setViewportView(jPanel2);
 
         jScrollPane1.createHorizontalScrollBar();
+
+        jLabel7.setBackground(new java.awt.Color(255, 255, 255));
+        jLabel7.setFont(new java.awt.Font("Dubai", 1, 24)); // NOI18N
+        jLabel7.setForeground(new java.awt.Color(51, 51, 51));
+        jLabel7.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
+        jLabel7.setText("Selecciona el Evento a Editar");
+
+        jScrollPane2.setBorder(null);
+
+        NotificateEditEvent.setEditable(false);
+        NotificateEditEvent.setBackground(new java.awt.Color(220, 220, 220));
+        NotificateEditEvent.setFont(new java.awt.Font("Dubai", 1, 24)); // NOI18N
+        NotificateEditEvent.setForeground(new java.awt.Color(51, 51, 51));
+        NotificateEditEvent.setMargin(new java.awt.Insets(3, 20, 3, 3));
+        jScrollPane2.setViewportView(NotificateEditEvent);
 
         jMenuBar1.setBackground(new java.awt.Color(55, 55, 55));
         jMenuBar1.setForeground(new java.awt.Color(153, 153, 153));
@@ -263,12 +286,38 @@ public class EditarEvento extends javax.swing.JFrame {
         });
         menuAddEvent.add(jSeparator2);
 
+        btnAddEvent.setText("Agregar...");
+        btnAddEvent.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btnAddEventActionPerformed(evt);
+            }
+        });
+        menuAddEvent.add(btnAddEvent);
+
         jMenuBar1.add(menuAddEvent);
 
         menuEditEvent.setText("Editar Evento");
+
+        btnEditEvent.setText("Editar...");
+        btnEditEvent.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btnEditEventActionPerformed(evt);
+            }
+        });
+        menuEditEvent.add(btnEditEvent);
+
         jMenuBar1.add(menuEditEvent);
 
         btnRemoveEvent.setText("Eliminar Evento");
+
+        btnDelete.setText("Eliminar...");
+        btnDelete.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btnDeleteActionPerformed(evt);
+            }
+        });
+        btnRemoveEvent.add(btnDelete);
+
         jMenuBar1.add(btnRemoveEvent);
 
         setJMenuBar(jMenuBar1);
@@ -280,13 +329,16 @@ public class EditarEvento extends javax.swing.JFrame {
         layout.setHorizontalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(layout.createSequentialGroup()
-                .addComponent(jLabel1, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addComponent(jLabel1, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                    .addGroup(layout.createSequentialGroup()
+                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                            .addComponent(jScrollPane3, javax.swing.GroupLayout.DEFAULT_SIZE, 608, Short.MAX_VALUE)
+                            .addComponent(jLabel7, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                            .addComponent(jScrollPane2, javax.swing.GroupLayout.Alignment.TRAILING))
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                        .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 508, javax.swing.GroupLayout.PREFERRED_SIZE)))
                 .addContainerGap())
-            .addGroup(layout.createSequentialGroup()
-                .addComponent(jScrollPane3, javax.swing.GroupLayout.DEFAULT_SIZE, 513, Short.MAX_VALUE)
-                .addGap(18, 18, 18)
-                .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addGap(27, 27, 27))
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -294,10 +346,15 @@ public class EditarEvento extends javax.swing.JFrame {
                 .addGap(6, 6, 6)
                 .addComponent(jLabel1, javax.swing.GroupLayout.PREFERRED_SIZE, 21, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
-                    .addComponent(jScrollPane1, javax.swing.GroupLayout.DEFAULT_SIZE, 356, Short.MAX_VALUE)
-                    .addComponent(jScrollPane3, javax.swing.GroupLayout.PREFERRED_SIZE, 0, Short.MAX_VALUE))
-                .addContainerGap(43, Short.MAX_VALUE))
+                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addComponent(jScrollPane1)
+                    .addGroup(layout.createSequentialGroup()
+                        .addComponent(jLabel7, javax.swing.GroupLayout.PREFERRED_SIZE, 21, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addGap(11, 11, 11)
+                        .addComponent(jScrollPane3, javax.swing.GroupLayout.PREFERRED_SIZE, 324, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                        .addComponent(jScrollPane2, javax.swing.GroupLayout.DEFAULT_SIZE, 60, Short.MAX_VALUE)))
+                .addContainerGap())
         );
 
         pack();
@@ -318,11 +375,14 @@ public class EditarEvento extends javax.swing.JFrame {
     private void btnHomeActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnHomeActionPerformed
 
     }//GEN-LAST:event_btnHomeActionPerformed
-
-    private void menuAddEventActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_menuAddEventActionPerformed
-
-    }//GEN-LAST:event_menuAddEventActionPerformed
-
+    private void tableMouseClicked(MouseEvent e){
+        int i = jTable2.getSelectedRow();
+        id = Integer.parseInt(jTable2.getValueAt(i, 0).toString());
+        name = jTable2.getValueAt(i, 1).toString();
+        jTextField1.setText(name);
+        NotificateEditEvent.setText("Evento "+(i+1)+" Seleccionado!!!");
+        
+        }
     private void jTextField1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jTextField1ActionPerformed
 
     }//GEN-LAST:event_jTextField1ActionPerformed
@@ -350,7 +410,7 @@ public class EditarEvento extends javax.swing.JFrame {
             int hr = jSpinField1.getValue();
             int min = jSpinField2.getValue();
 
-            EventManager mainclass = new EventManager();
+            mainclass = new EventManager();
             boolean isValidEvent = mainclass.editEvent(id,nameedit,tipo,date,hr,min);
             if (isValidEvent){
                 
@@ -365,14 +425,37 @@ public class EditarEvento extends javax.swing.JFrame {
             }
 
         }
-        catch(NullPointerException n){
+        catch(NullPointerException | ArrayIndexOutOfBoundsException t){
 
-            JOptionPane.showMessageDialog(this, "Datos Incorrectos", "Error", 0);
+            JOptionPane.showMessageDialog(this, "No existen Eventos!!!", "Error", 0);
             this.dispose();
-            AgregarEvento agregarEvento = new AgregarEvento();
-            agregarEvento.setVisible(true);
+            EditarEvento frame = new EditarEvento();
+            frame.setVisible(true);
+        
         }
     }//GEN-LAST:event_jButton1ActionPerformed
+
+    private void menuAddEventActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_menuAddEventActionPerformed
+
+    }//GEN-LAST:event_menuAddEventActionPerformed
+
+    private void btnAddEventActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnAddEventActionPerformed
+        AgregarEvento d = new AgregarEvento();
+        d.setVisible(true);
+        this.dispose();
+    }//GEN-LAST:event_btnAddEventActionPerformed
+
+    private void btnEditEventActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnEditEventActionPerformed
+        EditarEvento e = new EditarEvento();
+        e.setVisible(true);
+        this.dispose();
+    }//GEN-LAST:event_btnEditEventActionPerformed
+
+    private void btnDeleteActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnDeleteActionPerformed
+        EliminarEvento e = new EliminarEvento();
+        e.setVisible(true);
+        this.dispose();
+    }//GEN-LAST:event_btnDeleteActionPerformed
 
     /**
      * @param args the command line arguments
@@ -410,6 +493,10 @@ public class EditarEvento extends javax.swing.JFrame {
     }
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
+    private javax.swing.JTextPane NotificateEditEvent;
+    private javax.swing.JMenuItem btnAddEvent;
+    private javax.swing.JMenuItem btnDelete;
+    private javax.swing.JMenuItem btnEditEvent;
     private javax.swing.JMenu btnHome;
     private javax.swing.JMenu btnRemoveEvent;
     private javax.swing.JButton jButton1;
@@ -422,11 +509,13 @@ public class EditarEvento extends javax.swing.JFrame {
     private javax.swing.JLabel jLabel4;
     private javax.swing.JLabel jLabel5;
     private javax.swing.JLabel jLabel6;
+    private javax.swing.JLabel jLabel7;
     private javax.swing.JMenuBar jMenuBar1;
     private javax.swing.JMenuItem jMenuItem1;
     private javax.swing.JPanel jPanel2;
     private javax.swing.JPanel jPanel3;
     private javax.swing.JScrollPane jScrollPane1;
+    private javax.swing.JScrollPane jScrollPane2;
     private javax.swing.JScrollPane jScrollPane3;
     private javax.swing.JPopupMenu.Separator jSeparator2;
     private com.toedter.components.JSpinField jSpinField1;

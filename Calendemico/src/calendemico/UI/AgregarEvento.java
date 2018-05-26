@@ -71,7 +71,9 @@ public class AgregarEvento extends javax.swing.JFrame {
         menuAddEvent = new javax.swing.JMenu();
         jSeparator2 = new javax.swing.JPopupMenu.Separator();
         menuEditEvent = new javax.swing.JMenu();
+        btnEditEvent = new javax.swing.JMenuItem();
         btnRemoveEvent = new javax.swing.JMenu();
+        btnDelete = new javax.swing.JMenuItem();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
         getContentPane().setLayout(new org.netbeans.lib.awtextra.AbsoluteLayout());
@@ -92,7 +94,6 @@ public class AgregarEvento extends javax.swing.JFrame {
 
         jCheckBox1.setFont(new java.awt.Font("Dubai", 1, 14)); // NOI18N
         jCheckBox1.setText("Desea una Alarma?");
-        jCheckBox1.setActionCommand("Desea una Alarma?");
         jCheckBox1.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 jCheckBox1ActionPerformed(evt);
@@ -209,9 +210,27 @@ public class AgregarEvento extends javax.swing.JFrame {
         jMenuBar1.add(menuAddEvent);
 
         menuEditEvent.setText("Editar Evento");
+
+        btnEditEvent.setText("Editar...");
+        btnEditEvent.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btnEditEventActionPerformed(evt);
+            }
+        });
+        menuEditEvent.add(btnEditEvent);
+
         jMenuBar1.add(menuEditEvent);
 
         btnRemoveEvent.setText("Eliminar Evento");
+
+        btnDelete.setText("Eliminar...");
+        btnDelete.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btnDeleteActionPerformed(evt);
+            }
+        });
+        btnRemoveEvent.add(btnDelete);
+
         jMenuBar1.add(btnRemoveEvent);
 
         setJMenuBar(jMenuBar1);
@@ -292,6 +311,18 @@ public class AgregarEvento extends javax.swing.JFrame {
             
     }//GEN-LAST:event_jMenuItem1ActionPerformed
 
+    private void btnEditEventActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnEditEventActionPerformed
+        EditarEvento e = new EditarEvento();
+        e.setVisible(true);
+        this.dispose();
+    }//GEN-LAST:event_btnEditEventActionPerformed
+
+    private void btnDeleteActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnDeleteActionPerformed
+        EliminarEvento e = new EliminarEvento();
+        e.setVisible(true);
+        this.dispose();
+    }//GEN-LAST:event_btnDeleteActionPerformed
+
     /**
      * @param args the command line arguments
      */
@@ -329,6 +360,8 @@ public class AgregarEvento extends javax.swing.JFrame {
     }
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
+    private javax.swing.JMenuItem btnDelete;
+    private javax.swing.JMenuItem btnEditEvent;
     private javax.swing.JMenu btnHome;
     private javax.swing.JMenu btnRemoveEvent;
     private javax.swing.JButton jButton1;

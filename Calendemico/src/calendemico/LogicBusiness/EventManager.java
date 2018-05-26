@@ -53,14 +53,18 @@ public class EventManager {
     else{
         Date daterevised = this.setAlarm(d, hr, min);
         
-        listadeeventos.get(id).setNombre(name);
-        listadeeventos.get(id).setTipo(tipo);
-        listadeeventos.get(id).setEventDate(daterevised);
+        listadeeventos.get(id-1).setNombre(name);
+        listadeeventos.get(id-1).setTipo(tipo);
+        listadeeventos.get(id-1).setEventDate(daterevised);
         return true;
     }
-    
     }
 
+    public void deleteEvent(int id){
+        
+        listadeeventos.remove(id-1);
+        
+    }
     public Date setAlarm(Date d, int hr, int min){
     
     GregorianCalendar g = new GregorianCalendar();

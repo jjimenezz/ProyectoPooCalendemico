@@ -99,6 +99,7 @@ public class MainFrame extends javax.swing.JFrame {
         menuEditEvent = new javax.swing.JMenu();
         btnEditEvent = new javax.swing.JMenuItem();
         btnRemoveEvent = new javax.swing.JMenu();
+        btnDelete = new javax.swing.JMenuItem();
 
         jTable1.setModel(new javax.swing.table.DefaultTableModel(
             new Object [][] {
@@ -125,7 +126,7 @@ public class MainFrame extends javax.swing.JFrame {
         jPanel2.setLayout(new java.awt.CardLayout());
 
         jPanel4.setBackground(new java.awt.Color(55, 55, 55));
-        jPanel4.setLayout(new java.awt.GridLayout());
+        jPanel4.setLayout(new java.awt.GridLayout(1, 0));
         jPanel2.add(jPanel4, "card2");
 
         jPanel1.add(jPanel2, java.awt.BorderLayout.PAGE_END);
@@ -253,6 +254,15 @@ public class MainFrame extends javax.swing.JFrame {
         jMenuBar1.add(menuEditEvent);
 
         btnRemoveEvent.setText("Eliminar Evento");
+
+        btnDelete.setText("Eliminar...");
+        btnDelete.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btnDeleteActionPerformed(evt);
+            }
+        });
+        btnRemoveEvent.add(btnDelete);
+
         jMenuBar1.add(btnRemoveEvent);
 
         setJMenuBar(jMenuBar1);
@@ -279,6 +289,12 @@ public class MainFrame extends javax.swing.JFrame {
         e.setVisible(true);
         this.dispose();
     }//GEN-LAST:event_btnEditEventActionPerformed
+
+    private void btnDeleteActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnDeleteActionPerformed
+        EliminarEvento e = new EliminarEvento();
+        e.setVisible(true);
+        this.dispose();
+    }//GEN-LAST:event_btnDeleteActionPerformed
 
     /**
      * @param args the command line arguments
@@ -311,6 +327,7 @@ public class MainFrame extends javax.swing.JFrame {
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JMenuItem btnAddEvent;
+    private javax.swing.JMenuItem btnDelete;
     private javax.swing.JMenuItem btnEditEvent;
     private javax.swing.JMenu btnHome;
     private javax.swing.JMenu btnRemoveEvent;
