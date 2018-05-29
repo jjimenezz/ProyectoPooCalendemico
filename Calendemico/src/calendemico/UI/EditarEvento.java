@@ -5,55 +5,46 @@
  */
 package calendemico.UI;
 
-import calendemico.Data.Evento;
 import calendemico.LogicBusiness.EventManager;
+
 import java.awt.Color;
-import java.awt.Event;
 import java.awt.Font;
-import java.awt.Toolkit;
 import java.awt.event.MouseAdapter;
 import java.awt.event.MouseEvent;
-
-import java.util.ArrayList;
 import java.util.Date;
-import java.util.logging.Level;
-import java.util.logging.Logger;
 import javax.swing.JOptionPane;
-import javax.swing.UnsupportedLookAndFeelException;
 
 /**
  *
  * @author danie
  */
-public class EditarEvento extends javax.swing.JFrame {
+public class EditarEvento extends javax.swing.JDialog {
 
-    static ArrayList<Evento> listadeeventos;
     EventManager mainclass = new EventManager();
-    static String name;
-    static int id;
+    int id;
+    String name;
     /**
-     * Creates new form EditarEvento
+     * 
+     * Creates new form JDialog1
      */
-    public EditarEvento() {
-        setTitle("Editar Evento");
+    public EditarEvento(java.awt.Frame parent, boolean modal) {
+        super(parent, modal);
         initComponents();
-        setIcon();
-        setSize(1000,600);
+         Date d = new Date();
+        setTitle("Editar Evento");
         setLocationRelativeTo(null);
-        
-        Object[][] Eventos = mainclass.showEvents();
+         Object[][] Eventos = mainclass.showEvents();
         jTable2.setModel(new javax.swing.table.DefaultTableModel(Eventos,
     new String [] {"ID",
         "Nombre", "Tipo de Evento", "Fecha", "Alarma"
     }));
+        jDateChooser1.setMinSelectableDate(d);
         jSpinField1.setVisible(false);
         jSpinField2.setVisible(false);
         jSpinField1.setMinimum(0);
-        jSpinField2.setMaximum(59);
-        jSpinField1.setMaximum(23);
         jSpinField2.setMinimum(0);
-        Date d = new Date();
-        jDateChooser1.setMinSelectableDate(d);
+        jSpinField1.setMaximum(23);
+        jSpinField2.setMaximum(59);
         jTable2.getTableHeader().setBackground(new Color(150,150,150));
         jTable2.getTableHeader().setFont(new Font("Dubai",1,14));
         jTable2.addMouseListener(new MouseAdapter() {
@@ -63,7 +54,6 @@ public class EditarEvento extends javax.swing.JFrame {
             }
 
         });
-        
     }
 
     /**
@@ -75,6 +65,9 @@ public class EditarEvento extends javax.swing.JFrame {
     // <editor-fold defaultstate="collapsed" desc="Generated Code">//GEN-BEGIN:initComponents
     private void initComponents() {
 
+        jLabel7 = new javax.swing.JLabel();
+        jScrollPane2 = new javax.swing.JScrollPane();
+        NotificateEditEvent = new javax.swing.JTextPane();
         jLabel1 = new javax.swing.JLabel();
         jScrollPane3 = new javax.swing.JScrollPane();
         jTable2 = new javax.swing.JTable();
@@ -93,22 +86,23 @@ public class EditarEvento extends javax.swing.JFrame {
         jLabel4 = new javax.swing.JLabel();
         jDateChooser1 = new com.toedter.calendar.JDateChooser();
         jButton1 = new javax.swing.JButton();
-        jLabel7 = new javax.swing.JLabel();
-        jScrollPane2 = new javax.swing.JScrollPane();
-        NotificateEditEvent = new javax.swing.JTextPane();
-        jMenuBar1 = new javax.swing.JMenuBar();
-        btnHome = new javax.swing.JMenu();
-        jMenuItem1 = new javax.swing.JMenuItem();
-        menuAddEvent = new javax.swing.JMenu();
-        jSeparator2 = new javax.swing.JPopupMenu.Separator();
-        btnAddEvent = new javax.swing.JMenuItem();
-        menuEditEvent = new javax.swing.JMenu();
-        btnEditEvent = new javax.swing.JMenuItem();
-        btnRemoveEvent = new javax.swing.JMenu();
-        btnDelete = new javax.swing.JMenuItem();
 
-        setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
-        setBackground(new java.awt.Color(55, 55, 55));
+        setDefaultCloseOperation(javax.swing.WindowConstants.DISPOSE_ON_CLOSE);
+
+        jLabel7.setBackground(new java.awt.Color(255, 255, 255));
+        jLabel7.setFont(new java.awt.Font("Dubai", 1, 24)); // NOI18N
+        jLabel7.setForeground(new java.awt.Color(51, 51, 51));
+        jLabel7.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
+        jLabel7.setText("Selecciona el Evento a Editar");
+
+        jScrollPane2.setBorder(null);
+
+        NotificateEditEvent.setEditable(false);
+        NotificateEditEvent.setBackground(new java.awt.Color(220, 220, 220));
+        NotificateEditEvent.setFont(new java.awt.Font("Dubai", 1, 24)); // NOI18N
+        NotificateEditEvent.setForeground(new java.awt.Color(51, 51, 51));
+        NotificateEditEvent.setMargin(new java.awt.Insets(3, 20, 3, 3));
+        jScrollPane2.setViewportView(NotificateEditEvent);
 
         jLabel1.setBackground(new java.awt.Color(255, 255, 255));
         jLabel1.setFont(new java.awt.Font("Dubai", 1, 24)); // NOI18N
@@ -242,86 +236,6 @@ public class EditarEvento extends javax.swing.JFrame {
 
         jScrollPane1.createHorizontalScrollBar();
 
-        jLabel7.setBackground(new java.awt.Color(255, 255, 255));
-        jLabel7.setFont(new java.awt.Font("Dubai", 1, 24)); // NOI18N
-        jLabel7.setForeground(new java.awt.Color(51, 51, 51));
-        jLabel7.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
-        jLabel7.setText("Selecciona el Evento a Editar");
-
-        jScrollPane2.setBorder(null);
-
-        NotificateEditEvent.setEditable(false);
-        NotificateEditEvent.setBackground(new java.awt.Color(220, 220, 220));
-        NotificateEditEvent.setFont(new java.awt.Font("Dubai", 1, 24)); // NOI18N
-        NotificateEditEvent.setForeground(new java.awt.Color(51, 51, 51));
-        NotificateEditEvent.setMargin(new java.awt.Insets(3, 20, 3, 3));
-        jScrollPane2.setViewportView(NotificateEditEvent);
-
-        jMenuBar1.setBackground(new java.awt.Color(55, 55, 55));
-        jMenuBar1.setForeground(new java.awt.Color(153, 153, 153));
-        jMenuBar1.setFont(new java.awt.Font("Dubai", 1, 18)); // NOI18N
-
-        btnHome.setText("Home");
-        btnHome.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                btnHomeActionPerformed(evt);
-            }
-        });
-
-        jMenuItem1.setText("Principal");
-        jMenuItem1.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                jMenuItem1ActionPerformed(evt);
-            }
-        });
-        btnHome.add(jMenuItem1);
-
-        jMenuBar1.add(btnHome);
-
-        menuAddEvent.setText("Agregar Evento");
-        menuAddEvent.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                menuAddEventActionPerformed(evt);
-            }
-        });
-        menuAddEvent.add(jSeparator2);
-
-        btnAddEvent.setText("Agregar...");
-        btnAddEvent.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                btnAddEventActionPerformed(evt);
-            }
-        });
-        menuAddEvent.add(btnAddEvent);
-
-        jMenuBar1.add(menuAddEvent);
-
-        menuEditEvent.setText("Editar Evento");
-
-        btnEditEvent.setText("Editar...");
-        btnEditEvent.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                btnEditEventActionPerformed(evt);
-            }
-        });
-        menuEditEvent.add(btnEditEvent);
-
-        jMenuBar1.add(menuEditEvent);
-
-        btnRemoveEvent.setText("Eliminar Evento");
-
-        btnDelete.setText("Eliminar...");
-        btnDelete.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                btnDeleteActionPerformed(evt);
-            }
-        });
-        btnRemoveEvent.add(btnDelete);
-
-        jMenuBar1.add(btnRemoveEvent);
-
-        setJMenuBar(jMenuBar1);
-
         jScrollPane3.createHorizontalScrollBar();
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
@@ -333,8 +247,8 @@ public class EditarEvento extends javax.swing.JFrame {
                     .addComponent(jLabel1, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                     .addGroup(layout.createSequentialGroup()
                         .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                            .addComponent(jScrollPane3, javax.swing.GroupLayout.DEFAULT_SIZE, 608, Short.MAX_VALUE)
-                            .addComponent(jLabel7, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                            .addComponent(jScrollPane3, javax.swing.GroupLayout.PREFERRED_SIZE, 0, Short.MAX_VALUE)
+                            .addComponent(jLabel7, javax.swing.GroupLayout.DEFAULT_SIZE, 425, Short.MAX_VALUE)
                             .addComponent(jScrollPane2, javax.swing.GroupLayout.Alignment.TRAILING))
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                         .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 508, javax.swing.GroupLayout.PREFERRED_SIZE)))
@@ -347,34 +261,18 @@ public class EditarEvento extends javax.swing.JFrame {
                 .addComponent(jLabel1, javax.swing.GroupLayout.PREFERRED_SIZE, 21, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addComponent(jScrollPane1)
+                    .addComponent(jScrollPane1, javax.swing.GroupLayout.DEFAULT_SIZE, 447, Short.MAX_VALUE)
                     .addGroup(layout.createSequentialGroup()
                         .addComponent(jLabel7, javax.swing.GroupLayout.PREFERRED_SIZE, 21, javax.swing.GroupLayout.PREFERRED_SIZE)
                         .addGap(11, 11, 11)
                         .addComponent(jScrollPane3, javax.swing.GroupLayout.PREFERRED_SIZE, 324, javax.swing.GroupLayout.PREFERRED_SIZE)
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                        .addComponent(jScrollPane2, javax.swing.GroupLayout.DEFAULT_SIZE, 60, Short.MAX_VALUE)))
+                        .addComponent(jScrollPane2, javax.swing.GroupLayout.DEFAULT_SIZE, 85, Short.MAX_VALUE)))
                 .addContainerGap())
         );
 
         pack();
     }// </editor-fold>//GEN-END:initComponents
-
-    private void jMenuItem1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jMenuItem1ActionPerformed
-        MainFrame d;
-        try {
-            d = new MainFrame();
-            d.setVisible(true);
-            this.dispose();
-        } catch (UnsupportedLookAndFeelException ex) {
-            Logger.getLogger(EditarEvento.class.getName()).log(Level.SEVERE, null, ex);
-        }
-
-    }//GEN-LAST:event_jMenuItem1ActionPerformed
-
-    private void btnHomeActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnHomeActionPerformed
-
-    }//GEN-LAST:event_btnHomeActionPerformed
     private void tableMouseClicked(MouseEvent e){
         int i = jTable2.getSelectedRow();
         id = Integer.parseInt(jTable2.getValueAt(i, 0).toString());
@@ -404,7 +302,7 @@ public class EditarEvento extends javax.swing.JFrame {
     }//GEN-LAST:event_jComboBox1ActionPerformed
 
     private void jButton1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton1ActionPerformed
-        try{String nameedit = jTextField1.getText();
+       try{String nameedit = jTextField1.getText();
             String tipo =  jComboBox1.getSelectedItem().toString();
             Date date = jDateChooser1.getDate();
             int hr = jSpinField1.getValue();
@@ -415,47 +313,19 @@ public class EditarEvento extends javax.swing.JFrame {
             if (isValidEvent){
                 
                 JOptionPane.showConfirmDialog(this, "Evento editado exitosamente","Exito",0);
-                EditarEvento e = new EditarEvento();
-                e.setVisible(true);
                 this.dispose();
                 }
             else{
                 JOptionPane.showMessageDialog(this, "Datos Incorrectos", "Error", 0);
-                
             }
 
         }
         catch(NullPointerException | ArrayIndexOutOfBoundsException t){
 
-            JOptionPane.showMessageDialog(this, "No existen Eventos!!!", "Error", 0);
+            JOptionPane.showMessageDialog(this, "No has escogido un Evento!!!", "Error", 0);
             this.dispose();
-            EditarEvento frame = new EditarEvento();
-            frame.setVisible(true);
-        
         }
     }//GEN-LAST:event_jButton1ActionPerformed
-
-    private void menuAddEventActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_menuAddEventActionPerformed
-
-    }//GEN-LAST:event_menuAddEventActionPerformed
-
-    private void btnAddEventActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnAddEventActionPerformed
-        AgregarEvento d = new AgregarEvento();
-        d.setVisible(true);
-        this.dispose();
-    }//GEN-LAST:event_btnAddEventActionPerformed
-
-    private void btnEditEventActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnEditEventActionPerformed
-        EditarEvento e = new EditarEvento();
-        e.setVisible(true);
-        this.dispose();
-    }//GEN-LAST:event_btnEditEventActionPerformed
-
-    private void btnDeleteActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnDeleteActionPerformed
-        EliminarEvento e = new EliminarEvento();
-        e.setVisible(true);
-        this.dispose();
-    }//GEN-LAST:event_btnDeleteActionPerformed
 
     /**
      * @param args the command line arguments
@@ -483,22 +353,25 @@ public class EditarEvento extends javax.swing.JFrame {
             java.util.logging.Logger.getLogger(EditarEvento.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
         }
         //</editor-fold>
+        //</editor-fold>
 
-        /* Create and display the form */
+        /* Create and display the dialog */
         java.awt.EventQueue.invokeLater(new Runnable() {
             public void run() {
-                new EditarEvento().setVisible(true);
+                EditarEvento dialog = new EditarEvento(new javax.swing.JFrame(), true);
+                dialog.addWindowListener(new java.awt.event.WindowAdapter() {
+                    @Override
+                    public void windowClosing(java.awt.event.WindowEvent e) {
+                        System.exit(0);
+                    }
+                });
+                dialog.setVisible(true);
             }
         });
     }
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JTextPane NotificateEditEvent;
-    private javax.swing.JMenuItem btnAddEvent;
-    private javax.swing.JMenuItem btnDelete;
-    private javax.swing.JMenuItem btnEditEvent;
-    private javax.swing.JMenu btnHome;
-    private javax.swing.JMenu btnRemoveEvent;
     private javax.swing.JButton jButton1;
     private javax.swing.JCheckBox jCheckBox1;
     private javax.swing.JComboBox<String> jComboBox1;
@@ -510,23 +383,14 @@ public class EditarEvento extends javax.swing.JFrame {
     private javax.swing.JLabel jLabel5;
     private javax.swing.JLabel jLabel6;
     private javax.swing.JLabel jLabel7;
-    private javax.swing.JMenuBar jMenuBar1;
-    private javax.swing.JMenuItem jMenuItem1;
     private javax.swing.JPanel jPanel2;
     private javax.swing.JPanel jPanel3;
     private javax.swing.JScrollPane jScrollPane1;
     private javax.swing.JScrollPane jScrollPane2;
     private javax.swing.JScrollPane jScrollPane3;
-    private javax.swing.JPopupMenu.Separator jSeparator2;
     private com.toedter.components.JSpinField jSpinField1;
     private com.toedter.components.JSpinField jSpinField2;
     private javax.swing.JTable jTable2;
     private javax.swing.JTextField jTextField1;
-    private javax.swing.JMenu menuAddEvent;
-    private javax.swing.JMenu menuEditEvent;
     // End of variables declaration//GEN-END:variables
-
-    private void setIcon() {
-         setIconImage(Toolkit.getDefaultToolkit().getImage(getClass().getResource("icon.png")));
-    }
 }

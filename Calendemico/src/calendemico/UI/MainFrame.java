@@ -12,6 +12,8 @@ import java.awt.Toolkit;
 import de.javasoft.plaf.synthetica.SyntheticaAluOxideLookAndFeel;
 import java.awt.Color;
 import java.awt.Font;
+import java.awt.event.WindowAdapter;
+import java.awt.event.WindowEvent;
 import java.text.ParseException;
 
 import java.text.SimpleDateFormat;
@@ -23,6 +25,7 @@ import javax.swing.UIManager;
 import javax.swing.*;
 import static javax.swing.UIManager.setLookAndFeel;
 import javax.swing.border.EmptyBorder;
+import javax.swing.table.DefaultTableModel;
 
 /**
  *
@@ -35,6 +38,8 @@ public class MainFrame extends javax.swing.JFrame {
      */
     EventManager mainclass = new EventManager();
     static ArrayList<Evento> listadeeventos = new ArrayList(){};
+    static DefaultTableModel model;
+    
     
     
     
@@ -42,27 +47,26 @@ public class MainFrame extends javax.swing.JFrame {
         setTitle("Calendémico");
         initComponents();
         setIcon();
-        setSize(1310,550);
+        setExtendedState(MAXIMIZED_BOTH);
   
         String str = mainclass.getDateText();
+        
         Object[][] Eventos = mainclass.showEvents();
-        jTable2.setModel(new javax.swing.table.DefaultTableModel(Eventos,
-    new String [] {"ID",
-        "Nombre", "Tipo de Evento", "Fecha", "Alarma"
-    }));
+        DefaultTableModel model2 = new javax.swing.table.DefaultTableModel(Eventos,new String [] {"ID","Nombre", "Tipo de Evento", "Fecha", "Alarma"});
+        model = model2;
+        jTable2.setModel(model);
         jTable2.getTableHeader().setBackground(new Color(150,150,150));
         jTable2.getTableHeader().setFont(new Font("Dubai",1,14));
         
         
         jTextPane1.setText(str);
-        setLocationRelativeTo(null);
+        
         
         jCalendar1.getDayChooser().setDayBordersVisible(false);
         jCalendar1.getDayChooser().getDayPanel().setBackground(new Color(250,250,250));
         jCalendar1.getMonthChooser().setFont(new Font("Dubai",1,14));
         jCalendar1.setBorder(new EmptyBorder(5,5,5,5));
        
-        
     }
     
 
@@ -91,6 +95,7 @@ public class MainFrame extends javax.swing.JFrame {
         jCalendar1 = new com.toedter.calendar.JCalendar();
         jScrollPane3 = new javax.swing.JScrollPane();
         jTable2 = new javax.swing.JTable();
+        jLayeredPane1 = new javax.swing.JLayeredPane();
         jMenuBar1 = new javax.swing.JMenuBar();
         btnHome = new javax.swing.JMenu();
         menuAddEvent = new javax.swing.JMenu();
@@ -98,7 +103,7 @@ public class MainFrame extends javax.swing.JFrame {
         btnAddEvent = new javax.swing.JMenuItem();
         menuEditEvent = new javax.swing.JMenu();
         btnEditEvent = new javax.swing.JMenuItem();
-        btnRemoveEvent = new javax.swing.JMenu();
+        menuRemoveEvent = new javax.swing.JMenu();
         btnDelete = new javax.swing.JMenuItem();
 
         jTable1.setModel(new javax.swing.table.DefaultTableModel(
@@ -206,6 +211,7 @@ public class MainFrame extends javax.swing.JFrame {
 
         jScrollPane3.createHorizontalScrollBar();
         jPanel3.add(jScrollPane3, new org.netbeans.lib.awtextra.AbsoluteConstraints(370, 80, 930, 330));
+        jPanel3.add(jLayeredPane1, new org.netbeans.lib.awtextra.AbsoluteConstraints(1040, -59, 120, 50));
 
         jPanel1.add(jPanel3, java.awt.BorderLayout.CENTER);
 
@@ -215,7 +221,9 @@ public class MainFrame extends javax.swing.JFrame {
         jMenuBar1.setForeground(new java.awt.Color(153, 153, 153));
         jMenuBar1.setFont(new java.awt.Font("Dubai", 1, 18)); // NOI18N
 
+        btnHome.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Icons/casa.png"))); // NOI18N
         btnHome.setText("Home");
+        btnHome.setFont(new java.awt.Font("Dubai", 1, 14)); // NOI18N
         btnHome.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 btnHomeActionPerformed(evt);
@@ -223,7 +231,9 @@ public class MainFrame extends javax.swing.JFrame {
         });
         jMenuBar1.add(btnHome);
 
+        menuAddEvent.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Icons/anadir.png"))); // NOI18N
         menuAddEvent.setText("Agregar Evento");
+        menuAddEvent.setFont(new java.awt.Font("Dubai", 1, 14)); // NOI18N
         menuAddEvent.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 menuAddEventActionPerformed(evt);
@@ -231,6 +241,7 @@ public class MainFrame extends javax.swing.JFrame {
         });
         menuAddEvent.add(jSeparator2);
 
+        btnAddEvent.setFont(new java.awt.Font("Dubai", 1, 14)); // NOI18N
         btnAddEvent.setText("Agregar...");
         btnAddEvent.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
@@ -241,8 +252,11 @@ public class MainFrame extends javax.swing.JFrame {
 
         jMenuBar1.add(menuAddEvent);
 
+        menuEditEvent.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Icons/editar.png"))); // NOI18N
         menuEditEvent.setText("Editar Evento");
+        menuEditEvent.setFont(new java.awt.Font("Dubai", 1, 14)); // NOI18N
 
+        btnEditEvent.setFont(new java.awt.Font("Dubai", 1, 14)); // NOI18N
         btnEditEvent.setText("Editar...");
         btnEditEvent.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
@@ -253,48 +267,80 @@ public class MainFrame extends javax.swing.JFrame {
 
         jMenuBar1.add(menuEditEvent);
 
-        btnRemoveEvent.setText("Eliminar Evento");
+        menuRemoveEvent.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Icons/basura.png"))); // NOI18N
+        menuRemoveEvent.setText("Eliminar Evento");
+        menuRemoveEvent.setFont(new java.awt.Font("Dubai", 1, 14)); // NOI18N
 
         btnDelete.setText("Eliminar...");
+        btnDelete.setFont(new Font("Dubai",1,14));
         btnDelete.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 btnDeleteActionPerformed(evt);
             }
         });
-        btnRemoveEvent.add(btnDelete);
+        menuRemoveEvent.add(btnDelete);
 
-        jMenuBar1.add(btnRemoveEvent);
+        jMenuBar1.add(menuRemoveEvent);
 
         setJMenuBar(jMenuBar1);
 
         pack();
     }// </editor-fold>//GEN-END:initComponents
 
-    private void btnHomeActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnHomeActionPerformed
-        
-    }//GEN-LAST:event_btnHomeActionPerformed
-
-    private void menuAddEventActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_menuAddEventActionPerformed
-        
-    }//GEN-LAST:event_menuAddEventActionPerformed
-
-    private void btnAddEventActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnAddEventActionPerformed
-        AgregarEvento d = new AgregarEvento();
+    private void btnDeleteActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnDeleteActionPerformed
+        EliminarEvento d;
+        d = new EliminarEvento(this,true);
         d.setVisible(true);
-        this.dispose();
-    }//GEN-LAST:event_btnAddEventActionPerformed
+        d.addWindowListener(new WindowAdapter() {
+            @Override
+            public void windowClosed(WindowEvent e) {
+                windowIsClosed(e);
+            }
+        });
+    }//GEN-LAST:event_btnDeleteActionPerformed
 
     private void btnEditEventActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnEditEventActionPerformed
-        EditarEvento e = new EditarEvento();
-        e.setVisible(true);
-        this.dispose();
+        EditarEvento d;
+        d = new EditarEvento(this,true);
+        d.setVisible(true);
+        d.addWindowListener(new WindowAdapter() {
+            @Override
+            public void windowClosed(WindowEvent e) {
+                windowIsClosed(e);
+            }
+        });
     }//GEN-LAST:event_btnEditEventActionPerformed
 
-    private void btnDeleteActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnDeleteActionPerformed
-        EliminarEvento e = new EliminarEvento();
-        e.setVisible(true);
-        this.dispose();
-    }//GEN-LAST:event_btnDeleteActionPerformed
+    private void menuAddEventActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_menuAddEventActionPerformed
+
+    }//GEN-LAST:event_menuAddEventActionPerformed
+    private void windowIsClosed(WindowEvent e){
+    Object[][] Eventos = mainclass.showEvents();
+    DefaultTableModel model2 = new javax.swing.table.DefaultTableModel(Eventos,new String [] {"ID","Nombre", "Tipo de Evento", "Fecha", "Alarma"});
+    jTable2.setModel(model2);
+    repaint();
+    
+    }
+    private void btnAddEventActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnAddEventActionPerformed
+        AgregarEvento d;
+        try {
+            d = new AgregarEvento(this,this.getTitle(),true,this.getGraphicsConfiguration());
+            d.setVisible(true);
+            d.addWindowListener(new WindowAdapter() {
+                     @Override
+                     public void windowClosed(WindowEvent e) {
+                         windowIsClosed(e);
+                    }
+                });
+        } catch (UnsupportedLookAndFeelException ex) {
+            Logger.getLogger(MainFrame.class.getName()).log(Level.SEVERE, null, ex);
+        }
+        
+    }//GEN-LAST:event_btnAddEventActionPerformed
+
+    private void btnHomeActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnHomeActionPerformed
+
+    }//GEN-LAST:event_btnHomeActionPerformed
 
     /**
      * @param args the command line arguments
@@ -330,12 +376,12 @@ public class MainFrame extends javax.swing.JFrame {
     private javax.swing.JMenuItem btnDelete;
     private javax.swing.JMenuItem btnEditEvent;
     private javax.swing.JMenu btnHome;
-    private javax.swing.JMenu btnRemoveEvent;
     private javax.swing.JButton jButton2;
     private com.toedter.calendar.JCalendar jCalendar1;
     private javax.swing.JLabel jLabel1;
     private javax.swing.JLabel jLabel2;
     private javax.swing.JLabel jLabel3;
+    private javax.swing.JLayeredPane jLayeredPane1;
     private javax.swing.JMenuBar jMenuBar1;
     private javax.swing.JPanel jPanel1;
     private javax.swing.JPanel jPanel2;
@@ -347,10 +393,11 @@ public class MainFrame extends javax.swing.JFrame {
     private javax.swing.JSeparator jSeparator1;
     private javax.swing.JPopupMenu.Separator jSeparator2;
     private javax.swing.JTable jTable1;
-    private javax.swing.JTable jTable2;
+    private static javax.swing.JTable jTable2;
     private javax.swing.JTextPane jTextPane1;
     private javax.swing.JMenu menuAddEvent;
     private javax.swing.JMenu menuEditEvent;
+    private javax.swing.JMenu menuRemoveEvent;
     // End of variables declaration//GEN-END:variables
 
     private void setIcon() {

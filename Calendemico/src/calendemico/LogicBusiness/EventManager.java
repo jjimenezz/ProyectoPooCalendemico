@@ -70,7 +70,7 @@ public class EventManager {
     GregorianCalendar g = new GregorianCalendar();
     g.setTime(d);
     String alarma;
-    g.set(Calendar.HOUR, hr);
+    g.set(Calendar.HOUR, hr-12);
     g.set(Calendar.MINUTE, min);
     Date nuevo = g.getTime();
     alarma = "Alarma a las: " + hr + ":" + min;
