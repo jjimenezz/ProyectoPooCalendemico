@@ -175,7 +175,7 @@ public class EliminarEvento extends javax.swing.JDialog {
 
     private void DeleteButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_DeleteButtonActionPerformed
         mainclass.deleteEvent(id);
-        JOptionPane.showConfirmDialog(this, "Evento borrado exitosamente","Exito",JOptionPane.INFORMATION_MESSAGE);
+        JOptionPane.showMessageDialog(this, "Evento borrado exitosamente","Exito",JOptionPane.INFORMATION_MESSAGE);
         this.dispose();
 
     }//GEN-LAST:event_DeleteButtonActionPerformed

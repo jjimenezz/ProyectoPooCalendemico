@@ -106,6 +106,8 @@ public class MainFrame extends javax.swing.JFrame {
         btnEditEvent = new javax.swing.JMenuItem();
         menuRemoveEvent = new javax.swing.JMenu();
         btnDelete = new javax.swing.JMenuItem();
+        menuArchiveEvent = new javax.swing.JMenu();
+        btnArchive = new javax.swing.JMenuItem();
 
         jTable1.setModel(new javax.swing.table.DefaultTableModel(
             new Object [][] {
@@ -173,7 +175,6 @@ public class MainFrame extends javax.swing.JFrame {
         jPanel3.add(jSeparator1, new org.netbeans.lib.awtextra.AbsoluteConstraints(766, 11, -1, -1));
 
         jCalendar1.setBackground(new java.awt.Color(55, 55, 55));
-        jCalendar1.setBorder(javax.swing.BorderFactory.createLineBorder(new java.awt.Color(0, 0, 0)));
         jCalendar1.setForeground(new java.awt.Color(153, 153, 153));
         jCalendar1.setDecorationBackgroundColor(new java.awt.Color(102, 102, 102));
         jCalendar1.setDoubleBuffered(false);
@@ -284,6 +285,21 @@ public class MainFrame extends javax.swing.JFrame {
 
         jMenuBar1.add(menuRemoveEvent);
 
+        menuArchiveEvent.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Icons/folder.png"))); // NOI18N
+        menuArchiveEvent.setText("Archivar Evento");
+        menuArchiveEvent.setFont(new java.awt.Font("Dubai", 1, 14)); // NOI18N
+
+        btnArchive.setText("Archivar");
+        btnDelete.setFont(new Font("Dubai",1,14));
+        btnArchive.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btnArchiveActionPerformed(evt);
+            }
+        });
+        menuArchiveEvent.add(btnArchive);
+
+        jMenuBar1.add(menuArchiveEvent);
+
         setJMenuBar(jMenuBar1);
 
         pack();
@@ -350,6 +366,19 @@ public class MainFrame extends javax.swing.JFrame {
 
     }//GEN-LAST:event_btnHomeActionPerformed
 
+    private void btnArchiveActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnArchiveActionPerformed
+        ArchivarEvento d;
+        d = new ArchivarEvento(this,true);
+        d.setVisible(true);
+        d.addWindowListener(new WindowAdapter() {
+            @Override
+            public void windowClosed(WindowEvent e) {
+                windowIsClosed(e);
+            }
+        });
+        
+    }//GEN-LAST:event_btnArchiveActionPerformed
+
     /**
      * @param args the command line arguments
      */
@@ -381,6 +410,7 @@ public class MainFrame extends javax.swing.JFrame {
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JMenuItem btnAddEvent;
+    private javax.swing.JMenuItem btnArchive;
     private javax.swing.JMenuItem btnDelete;
     private javax.swing.JMenuItem btnEditEvent;
     private javax.swing.JMenu btnHome;
@@ -404,6 +434,7 @@ public class MainFrame extends javax.swing.JFrame {
     private static javax.swing.JTable jTable2;
     private javax.swing.JTextPane jTextPane1;
     private javax.swing.JMenu menuAddEvent;
+    private javax.swing.JMenu menuArchiveEvent;
     private javax.swing.JMenu menuEditEvent;
     private javax.swing.JMenu menuRemoveEvent;
     // End of variables declaration//GEN-END:variables

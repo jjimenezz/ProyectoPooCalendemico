@@ -7,14 +7,20 @@ package calendemico.Data;
 import java.util.*;
 
 public class Evento {
+    int id;
     String nombre;
     String tipo;
     Date d;
 
-    public Evento(String nombre, String tipo, Date d) {
+    public Evento(int id, String nombre, String tipo, Date d) {
         this.nombre = nombre;
         this.tipo = tipo;
         this.d = d;
+        this.id = id;
+    }
+
+    public int getId() {
+        return id;
     }
 
     public String getNombre() {
@@ -39,6 +45,10 @@ public class Evento {
     
     public Date getEventDate(){      
     return d;
+    }
+
+    public void setId(int i) {
+        this.id = i;
     }
 
     

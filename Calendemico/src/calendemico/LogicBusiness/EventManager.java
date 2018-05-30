@@ -39,7 +39,7 @@ public class EventManager {
     }   
     else{
         Date daterevised = this.setAlarm(d, hr, min);
-        Evento e = new Evento(name,tipo,daterevised);
+        Evento e = new Evento(listadeeventos.size()+1,name,tipo,daterevised);
         listadeeventos.add(e);
         notificateEvent(e);
         return true;
@@ -63,6 +63,11 @@ public class EventManager {
     public void deleteEvent(int id){
         
         listadeeventos.remove(id-1);
+        for(Evento e : listadeeventos){
+       if(e.getId() > id){
+       e.setId(e.getId()-1);
+       }
+       }
         
     }
     public Date setAlarm(Date d, int hr, int min){
@@ -70,7 +75,7 @@ public class EventManager {
     GregorianCalendar g = new GregorianCalendar();
     g.setTime(d);
     String alarma;
-    g.set(Calendar.HOUR, hr-12);
+    g.set(Calendar.HOUR, hr);
     g.set(Calendar.MINUTE, min);
     Date nuevo = g.getTime();
     alarma = "Alarma a las: " + hr + ":" + min;
