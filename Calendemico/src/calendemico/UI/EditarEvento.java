@@ -13,6 +13,7 @@ import java.awt.event.MouseAdapter;
 import java.awt.event.MouseEvent;
 import java.util.Date;
 import javax.swing.JOptionPane;
+import javax.swing.JSpinner;
 
 /**
  *
@@ -39,12 +40,11 @@ public class EditarEvento extends javax.swing.JDialog {
         "Nombre", "Tipo de Evento", "Fecha", "Alarma"
     }));
         jDateChooser1.setMinSelectableDate(d);
-        jSpinField1.setVisible(false);
-        jSpinField2.setVisible(false);
-        jSpinField1.setMinimum(0);
-        jSpinField2.setMinimum(0);
-        jSpinField1.setMaximum(23);
-        jSpinField2.setMaximum(59);
+        jSpinner2.setVisible(false);
+        jSpinner3.setVisible(false);
+        ((JSpinner.DefaultEditor) jSpinner2.getEditor()).getTextField().setEditable(false);
+        ((JSpinner.DefaultEditor) jSpinner3.getEditor()).getTextField().setEditable(false);
+       
         jTable2.getTableHeader().setBackground(new Color(150,150,150));
         jTable2.getTableHeader().setFont(new Font("Dubai",1,14));
         jTable2.addMouseListener(new MouseAdapter() {
@@ -75,17 +75,17 @@ public class EditarEvento extends javax.swing.JDialog {
         jPanel2 = new javax.swing.JPanel();
         jLabel2 = new javax.swing.JLabel();
         jTextField1 = new javax.swing.JTextField();
-        jPanel3 = new javax.swing.JPanel();
-        jCheckBox1 = new javax.swing.JCheckBox();
-        jSpinField1 = new com.toedter.components.JSpinField();
-        jSpinField2 = new com.toedter.components.JSpinField();
-        jLabel5 = new javax.swing.JLabel();
-        jLabel6 = new javax.swing.JLabel();
         jLabel3 = new javax.swing.JLabel();
         jComboBox1 = new javax.swing.JComboBox<>();
         jLabel4 = new javax.swing.JLabel();
         jDateChooser1 = new com.toedter.calendar.JDateChooser();
         jButton1 = new javax.swing.JButton();
+        jPanel4 = new javax.swing.JPanel();
+        jCheckBox1 = new javax.swing.JCheckBox();
+        jLabel5 = new javax.swing.JLabel();
+        jLabel6 = new javax.swing.JLabel();
+        jSpinner2 = new javax.swing.JSpinner();
+        jSpinner3 = new javax.swing.JSpinner();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.DISPOSE_ON_CLOSE);
 
@@ -153,56 +153,6 @@ public class EditarEvento extends javax.swing.JDialog {
         });
         jPanel2.add(jTextField1, new org.netbeans.lib.awtextra.AbsoluteConstraints(30, 100, 190, 34));
 
-        jCheckBox1.setFont(new java.awt.Font("Dubai", 1, 14)); // NOI18N
-        jCheckBox1.setText("Desea una Alarma?");
-        jCheckBox1.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                jCheckBox1ActionPerformed(evt);
-            }
-        });
-
-        jLabel5.setFont(new java.awt.Font("Dubai", 1, 14)); // NOI18N
-        jLabel5.setText("Hr(24):");
-
-        jLabel6.setFont(new java.awt.Font("Dubai", 1, 14)); // NOI18N
-        jLabel6.setText("Min:");
-
-        javax.swing.GroupLayout jPanel3Layout = new javax.swing.GroupLayout(jPanel3);
-        jPanel3.setLayout(jPanel3Layout);
-        jPanel3Layout.setHorizontalGroup(
-            jPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(jPanel3Layout.createSequentialGroup()
-                .addContainerGap()
-                .addGroup(jPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addGroup(jPanel3Layout.createSequentialGroup()
-                        .addComponent(jLabel5)
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                        .addComponent(jSpinField1, javax.swing.GroupLayout.PREFERRED_SIZE, 45, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 12, Short.MAX_VALUE)
-                        .addComponent(jLabel6)
-                        .addGap(3, 3, 3)
-                        .addComponent(jSpinField2, javax.swing.GroupLayout.PREFERRED_SIZE, 45, javax.swing.GroupLayout.PREFERRED_SIZE))
-                    .addGroup(jPanel3Layout.createSequentialGroup()
-                        .addComponent(jCheckBox1, javax.swing.GroupLayout.PREFERRED_SIZE, 154, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addGap(0, 0, Short.MAX_VALUE)))
-                .addContainerGap())
-        );
-        jPanel3Layout.setVerticalGroup(
-            jPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(jPanel3Layout.createSequentialGroup()
-                .addContainerGap()
-                .addComponent(jCheckBox1)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 36, Short.MAX_VALUE)
-                .addGroup(jPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addComponent(jLabel5, javax.swing.GroupLayout.Alignment.TRAILING)
-                    .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
-                        .addComponent(jSpinField2, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                        .addComponent(jSpinField1, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
-                    .addComponent(jLabel6, javax.swing.GroupLayout.Alignment.TRAILING)))
-        );
-
-        jPanel2.add(jPanel3, new org.netbeans.lib.awtextra.AbsoluteConstraints(260, 170, 200, 100));
-
         jLabel3.setFont(new java.awt.Font("Dubai", 1, 14)); // NOI18N
         jLabel3.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
         jLabel3.setText("Tipo");
@@ -231,6 +181,57 @@ public class EditarEvento extends javax.swing.JDialog {
             }
         });
         jPanel2.add(jButton1, new org.netbeans.lib.awtextra.AbsoluteConstraints(200, 350, -1, -1));
+
+        jCheckBox1.setFont(new java.awt.Font("Dubai", 1, 14)); // NOI18N
+        jCheckBox1.setText("Desea una Alarma?");
+        jCheckBox1.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jCheckBox1ActionPerformed(evt);
+            }
+        });
+
+        jLabel5.setFont(new java.awt.Font("Dubai", 1, 14)); // NOI18N
+        jLabel5.setText("Hr(24):");
+
+        jLabel6.setFont(new java.awt.Font("Dubai", 1, 14)); // NOI18N
+        jLabel6.setText("Min:");
+
+        jSpinner2.setModel(new javax.swing.SpinnerNumberModel(0, 0, 23, 1));
+
+        jSpinner3.setModel(new javax.swing.SpinnerNumberModel(0, 0, 59, 1));
+
+        javax.swing.GroupLayout jPanel4Layout = new javax.swing.GroupLayout(jPanel4);
+        jPanel4.setLayout(jPanel4Layout);
+        jPanel4Layout.setHorizontalGroup(
+            jPanel4Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(jPanel4Layout.createSequentialGroup()
+                .addGroup(jPanel4Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
+                    .addGroup(jPanel4Layout.createSequentialGroup()
+                        .addContainerGap()
+                        .addComponent(jLabel5)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                        .addComponent(jSpinner2, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addGap(30, 30, 30)
+                        .addComponent(jLabel6))
+                    .addComponent(jCheckBox1, javax.swing.GroupLayout.PREFERRED_SIZE, 154, javax.swing.GroupLayout.PREFERRED_SIZE))
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                .addComponent(jSpinner3, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+        );
+        jPanel4Layout.setVerticalGroup(
+            jPanel4Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(jPanel4Layout.createSequentialGroup()
+                .addContainerGap()
+                .addComponent(jCheckBox1)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 35, Short.MAX_VALUE)
+                .addGroup(jPanel4Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addComponent(jLabel5, javax.swing.GroupLayout.Alignment.TRAILING)
+                    .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel4Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                        .addComponent(jLabel6)
+                        .addComponent(jSpinner2, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addComponent(jSpinner3, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))))
+        );
+
+        jPanel2.add(jPanel4, new org.netbeans.lib.awtextra.AbsoluteConstraints(270, 170, -1, -1));
 
         jScrollPane1.setViewportView(jPanel2);
 
@@ -285,18 +286,6 @@ public class EditarEvento extends javax.swing.JDialog {
 
     }//GEN-LAST:event_jTextField1ActionPerformed
 
-    private void jCheckBox1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jCheckBox1ActionPerformed
-        if(jCheckBox1.isSelected()){
-            jSpinField1.setVisible(true);
-            jSpinField2.setVisible(true);
-
-        }
-        else{
-            jSpinField1.setVisible(false);
-            jSpinField2.setVisible(false);
-        }
-    }//GEN-LAST:event_jCheckBox1ActionPerformed
-
     private void jComboBox1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jComboBox1ActionPerformed
         // TODO add your handling code here:
     }//GEN-LAST:event_jComboBox1ActionPerformed
@@ -305,18 +294,19 @@ public class EditarEvento extends javax.swing.JDialog {
        try{String nameedit = jTextField1.getText();
             String tipo =  jComboBox1.getSelectedItem().toString();
             Date date = jDateChooser1.getDate();
-            int hr = jSpinField1.getValue();
-            int min = jSpinField2.getValue();
+            int hr = (int)jSpinner2.getValue();
+            int min = (int)jSpinner3.getValue();
 
             mainclass = new EventManager();
             boolean isValidEvent = mainclass.editEvent(id,nameedit,tipo,date,hr,min);
             if (isValidEvent){
                 
-                JOptionPane.showConfirmDialog(this, "Evento editado exitosamente","Exito",0);
+                JOptionPane.showMessageDialog(this, "Evento editado exitosamente","Exito",JOptionPane.INFORMATION_MESSAGE);
                 this.dispose();
                 }
             else{
                 JOptionPane.showMessageDialog(this, "Datos Incorrectos", "Error", 0);
+                this.dispose();
             }
 
         }
@@ -326,6 +316,18 @@ public class EditarEvento extends javax.swing.JDialog {
             this.dispose();
         }
     }//GEN-LAST:event_jButton1ActionPerformed
+
+    private void jCheckBox1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jCheckBox1ActionPerformed
+        if(jCheckBox1.isSelected()){
+            jSpinner2.setVisible(true);
+            jSpinner3.setVisible(true);
+
+        }
+        else{
+            jSpinner2.setVisible(false);
+            jSpinner3.setVisible(false);
+        }
+    }//GEN-LAST:event_jCheckBox1ActionPerformed
 
     /**
      * @param args the command line arguments
@@ -384,12 +386,12 @@ public class EditarEvento extends javax.swing.JDialog {
     private javax.swing.JLabel jLabel6;
     private javax.swing.JLabel jLabel7;
     private javax.swing.JPanel jPanel2;
-    private javax.swing.JPanel jPanel3;
+    private javax.swing.JPanel jPanel4;
     private javax.swing.JScrollPane jScrollPane1;
     private javax.swing.JScrollPane jScrollPane2;
     private javax.swing.JScrollPane jScrollPane3;
-    private com.toedter.components.JSpinField jSpinField1;
-    private com.toedter.components.JSpinField jSpinField2;
+    private javax.swing.JSpinner jSpinner2;
+    private javax.swing.JSpinner jSpinner3;
     private javax.swing.JTable jTable2;
     private javax.swing.JTextField jTextField1;
     // End of variables declaration//GEN-END:variables

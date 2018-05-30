@@ -64,6 +64,7 @@ public class MainFrame extends javax.swing.JFrame {
         
         jCalendar1.getDayChooser().setDayBordersVisible(false);
         jCalendar1.getDayChooser().getDayPanel().setBackground(new Color(250,250,250));
+        
         jCalendar1.getMonthChooser().setFont(new Font("Dubai",1,14));
         jCalendar1.setBorder(new EmptyBorder(5,5,5,5));
        
@@ -172,6 +173,7 @@ public class MainFrame extends javax.swing.JFrame {
         jPanel3.add(jSeparator1, new org.netbeans.lib.awtextra.AbsoluteConstraints(766, 11, -1, -1));
 
         jCalendar1.setBackground(new java.awt.Color(55, 55, 55));
+        jCalendar1.setBorder(javax.swing.BorderFactory.createLineBorder(new java.awt.Color(0, 0, 0)));
         jCalendar1.setForeground(new java.awt.Color(153, 153, 153));
         jCalendar1.setDecorationBackgroundColor(new java.awt.Color(102, 102, 102));
         jCalendar1.setDoubleBuffered(false);
@@ -316,8 +318,14 @@ public class MainFrame extends javax.swing.JFrame {
     }//GEN-LAST:event_menuAddEventActionPerformed
     private void windowIsClosed(WindowEvent e){
     Object[][] Eventos = mainclass.showEvents();
+    listadeeventos = EventManager.getListadeeventos();
     DefaultTableModel model2 = new javax.swing.table.DefaultTableModel(Eventos,new String [] {"ID","Nombre", "Tipo de Evento", "Fecha", "Alarma"});
     jTable2.setModel(model2);
+    if(!listadeeventos.isEmpty()){
+        Date d = listadeeventos.get(listadeeventos.size()-1).getEventDate();
+        jCalendar1.setDate(d);
+        
+        }
     repaint();
     
     }
