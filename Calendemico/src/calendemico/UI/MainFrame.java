@@ -49,7 +49,7 @@ public class MainFrame extends javax.swing.JFrame {
         setIcon();
         setExtendedState(MAXIMIZED_BOTH);
   
-        String str = mainclass.getDateText();
+        
         
         Object[][] Eventos = mainclass.showEvents();
         DefaultTableModel model2 = new javax.swing.table.DefaultTableModel(Eventos,new String [] {"ID","Nombre", "Tipo de Evento", "Fecha", "Alarma"});
@@ -58,8 +58,7 @@ public class MainFrame extends javax.swing.JFrame {
         jTable2.getTableHeader().setBackground(new Color(150,150,150));
         jTable2.getTableHeader().setFont(new Font("Dubai",1,14));
         
-        
-        jTextPane1.setText(str);
+
         
         
         jCalendar1.getDayChooser().setDayBordersVisible(false);
@@ -89,8 +88,6 @@ public class MainFrame extends javax.swing.JFrame {
         jLabel1 = new javax.swing.JLabel();
         jPanel3 = new javax.swing.JPanel();
         jLabel3 = new javax.swing.JLabel();
-        jScrollPane1 = new javax.swing.JScrollPane();
-        jTextPane1 = new javax.swing.JTextPane();
         jLabel2 = new javax.swing.JLabel();
         jSeparator1 = new javax.swing.JSeparator();
         jCalendar1 = new com.toedter.calendar.JCalendar();
@@ -155,21 +152,11 @@ public class MainFrame extends javax.swing.JFrame {
         jLabel3.setText("Lista de Eventos");
         jPanel3.add(jLabel3, new org.netbeans.lib.awtextra.AbsoluteConstraints(730, 20, -1, -1));
 
-        jScrollPane1.setBorder(null);
-
-        jTextPane1.setEditable(false);
-        jTextPane1.setBackground(new java.awt.Color(55, 55, 55));
-        jTextPane1.setFont(new java.awt.Font("Dubai", 1, 18)); // NOI18N
-        jTextPane1.setForeground(new java.awt.Color(204, 204, 204));
-        jScrollPane1.setViewportView(jTextPane1);
-
-        jPanel3.add(jScrollPane1, new org.netbeans.lib.awtextra.AbsoluteConstraints(230, 10, 490, 60));
-
         jLabel2.setFont(new java.awt.Font("Dubai", 1, 24)); // NOI18N
         jLabel2.setForeground(new java.awt.Color(153, 153, 153));
         jLabel2.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
-        jLabel2.setText("Eventos Añadidos:");
-        jPanel3.add(jLabel2, new org.netbeans.lib.awtextra.AbsoluteConstraints(10, 10, -1, 68));
+        jLabel2.setText("Calendario");
+        jPanel3.add(jLabel2, new org.netbeans.lib.awtextra.AbsoluteConstraints(110, 10, -1, 68));
 
         jSeparator1.setForeground(new java.awt.Color(55, 55, 55));
         jPanel3.add(jSeparator1, new org.netbeans.lib.awtextra.AbsoluteConstraints(766, 11, -1, -1));
@@ -289,7 +276,8 @@ public class MainFrame extends javax.swing.JFrame {
         menuArchiveEvent.setText("Archivar Evento");
         menuArchiveEvent.setFont(new java.awt.Font("Dubai", 1, 14)); // NOI18N
 
-        btnArchive.setText("Archivar");
+        btnArchive.setFont(new java.awt.Font("Dubai", 1, 14)); // NOI18N
+        btnArchive.setText("Archivar...");
         btnDelete.setFont(new Font("Dubai",1,14));
         btnArchive.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
@@ -425,14 +413,12 @@ public class MainFrame extends javax.swing.JFrame {
     private javax.swing.JPanel jPanel2;
     private javax.swing.JPanel jPanel3;
     private javax.swing.JPanel jPanel4;
-    private javax.swing.JScrollPane jScrollPane1;
     private javax.swing.JScrollPane jScrollPane2;
     private javax.swing.JScrollPane jScrollPane3;
     private javax.swing.JSeparator jSeparator1;
     private javax.swing.JPopupMenu.Separator jSeparator2;
     private javax.swing.JTable jTable1;
     private static javax.swing.JTable jTable2;
-    private javax.swing.JTextPane jTextPane1;
     private javax.swing.JMenu menuAddEvent;
     private javax.swing.JMenu menuArchiveEvent;
     private javax.swing.JMenu menuEditEvent;

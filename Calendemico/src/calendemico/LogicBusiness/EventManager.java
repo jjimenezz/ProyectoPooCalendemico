@@ -20,7 +20,6 @@ public class EventManager {
     
     static ArrayList<Evento> listadeeventos = new ArrayList<>();
 
-    static String txt = "";
     /**
      * @param args the command line arguments
      * @throws javax.swing.UnsupportedLookAndFeelException
@@ -41,7 +40,6 @@ public class EventManager {
         Date daterevised = this.setAlarm(d, hr, min);
         Evento e = new Evento(listadeeventos.size()+1,name,tipo,daterevised);
         listadeeventos.add(e);
-        notificateEvent(e);
         return true;
     }
     
@@ -78,19 +76,12 @@ public class EventManager {
     g.set(Calendar.HOUR, hr);
     g.set(Calendar.MINUTE, min);
     Date nuevo = g.getTime();
-    alarma = "Alarma a las: " + hr + ":" + min;
-    System.out.println(alarma);
     return nuevo;
     
     
     }
     
-    public void notificateEvent(Evento e){
-        
-    txt = "Has Agregado un nuevo Evento: " + e.getNombre() + "\n";
-    SimpleDateFormat format = new SimpleDateFormat("EEEE, d 'de' MMMM 'del' yyyy");
-    txt = txt + "Para el " + format.format(e.getEventDate());
-    }
+    
     
     public Object[][] showEvents(){
     Object[][] listaeventos = new String[(listadeeventos.size())][5];
@@ -115,8 +106,5 @@ public class EventManager {
        return listaeventos;
     }
     
-    public String getDateText(){
-    return txt;
-    }
 }
 

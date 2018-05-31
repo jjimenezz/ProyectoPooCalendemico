@@ -6,14 +6,24 @@
 package calendemico.UI;
 
 import calendemico.Data.Evento;
+import calendemico.LogicBusiness.EventArchiver;
 import calendemico.LogicBusiness.EventManager;
 import java.awt.GridLayout;
+import java.io.File;
+import java.io.IOException;
 import java.util.ArrayList;
+import java.util.logging.Level;
+import java.util.logging.Logger;
+import javax.swing.JCheckBox;
+import javax.swing.JFileChooser;
 import javax.swing.ScrollPaneConstants.*;
 import javax.swing.JLabel;
+import javax.swing.JOptionPane;
 import javax.swing.JRadioButton;
 import javax.swing.JScrollPane;
 import static javax.swing.ScrollPaneConstants.HORIZONTAL_SCROLLBAR_NEVER;
+import javax.swing.filechooser.FileFilter;
+import javax.swing.filechooser.FileNameExtensionFilter;
 
 /**
  *
@@ -21,14 +31,25 @@ import static javax.swing.ScrollPaneConstants.HORIZONTAL_SCROLLBAR_NEVER;
  */
 public class ArchivarEvento extends javax.swing.JDialog {
 
+
     EventManager mainclass = new EventManager();
+    EventArchiver archiver = new EventArchiver();
     ArrayList<Evento> listadeeventos = EventManager.getListadeeventos();
+    ArrayList<JCheckBox> listadecheckboxes = new ArrayList<>();
+    ArrayList<Integer> ids = new ArrayList<>();
+    String Pathselectedfile;
+
     /**
      * Creates new form ArchivarEvento
      */
     public ArchivarEvento(java.awt.Frame parent, boolean modal) {
         super(parent, modal);
         initComponents();
+        this.Pathselectedfile = jFileChooser1.getSelectedFile().getAbsolutePath();
+        FileFilter filter = new FileNameExtensionFilter("Text File","txt");
+        jFileChooser1.setFileFilter(filter);
+        jFileChooser1.setApproveButtonText("Seleccionar");
+        
         setTitle("Archivar Evento");
         jPanel2.setLayout(new GridLayout(listadeeventos.size()+1,1));
         if(!listadeeventos.isEmpty()){
@@ -36,20 +57,20 @@ public class ArchivarEvento extends javax.swing.JDialog {
             String namebtn = "";
             namebtn = String.valueOf(e.getId()) + ". Evento: ";
             namebtn = namebtn + e.getNombre();
-            JRadioButton radiobtn = new JRadioButton(namebtn);
-            radiobtn.setFont(new java.awt.Font("Dubai", 1, 14));
-            jPanel2.add(radiobtn);
-            buttonGroup1.add(radiobtn);
+            JCheckBox checkbtn = new JCheckBox(namebtn);
+            checkbtn.setFont(new java.awt.Font("Dubai", 1, 20));
+            jPanel2.add(checkbtn);
+            listadecheckboxes.add(checkbtn);
     
-        }
+            }
         }
         else{
         JLabel nothing = new JLabel("No Existen Eventos!!!");
-        nothing.setFont(new java.awt.Font("Dubai", 1, 14));
+        nothing.setFont(new java.awt.Font("Dubai", 1, 24));
         jPanel2.add(nothing);
+        jFileChooser1.setVisible(false);
         }
     }
-    
 
     /**
      * This method is called from within the constructor to initialize the form.
@@ -60,12 +81,16 @@ public class ArchivarEvento extends javax.swing.JDialog {
     // <editor-fold defaultstate="collapsed" desc="Generated Code">//GEN-BEGIN:initComponents
     private void initComponents() {
 
-        buttonGroup1 = new javax.swing.ButtonGroup();
         jLabel1 = new javax.swing.JLabel();
         jPanel1 = new javax.swing.JPanel();
-        jLabel2 = new javax.swing.JLabel();
+        jButton1 = new javax.swing.JButton();
+        jFileChooser1 = new javax.swing.JFileChooser();
+        jLabel3 = new javax.swing.JLabel();
+        jLabel4 = new javax.swing.JLabel();
+        jPanel3 = new javax.swing.JPanel();
         jScrollPane1 = new javax.swing.JScrollPane();
         jPanel2 = new javax.swing.JPanel();
+        jLabel2 = new javax.swing.JLabel();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.DISPOSE_ON_CLOSE);
 
@@ -75,19 +100,47 @@ public class ArchivarEvento extends javax.swing.JDialog {
         jLabel1.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
         jLabel1.setText("Archivar Evento");
 
-        jLabel2.setBackground(new java.awt.Color(255, 255, 255));
-        jLabel2.setFont(new java.awt.Font("Dubai", 1, 24)); // NOI18N
-        jLabel2.setForeground(new java.awt.Color(51, 51, 51));
-        jLabel2.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
-        jLabel2.setText("Seleccione los Eventos a Archivar:");
+        jButton1.setFont(new java.awt.Font("Dubai", 1, 14)); // NOI18N
+        jButton1.setText("Confirmar Datos");
+        jButton1.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jButton1ActionPerformed(evt);
+            }
+        });
+
+        jFileChooser1.setAcceptAllFileFilterUsed(false);
+        jFileChooser1.setDialogTitle("");
+        jFileChooser1.setFont(new java.awt.Font("Dubai", 1, 14)); // NOI18N
+        jFileChooser1.setSelectedFile(new java.io.File("C:\\Users\\danie\\Documents\\NetBeansProjects\\ProyectoPooCalendemico\\Calendemico\\src\\Output\\output.txt"));
+        jFileChooser1.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jFileChooser1ActionPerformed(evt);
+            }
+        });
+
+        jLabel3.setBackground(new java.awt.Color(255, 255, 255));
+        jLabel3.setFont(new java.awt.Font("Dubai", 1, 24)); // NOI18N
+        jLabel3.setForeground(new java.awt.Color(51, 51, 51));
+        jLabel3.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
+        jLabel3.setText("Seleccione el archivo(.txt) para guardar sus eventos :");
+
+        jLabel4.setBackground(new java.awt.Color(255, 255, 255));
+        jLabel4.setFont(new java.awt.Font("Dubai", 1, 14)); // NOI18N
+        jLabel4.setForeground(new java.awt.Color(51, 51, 51));
+        jLabel4.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
+        jLabel4.setText("*Si no posee ninguno, deje el archivo por defecto");
+
+        jPanel3.setMaximumSize(new java.awt.Dimension(275, 138));
+        jPanel3.setLayout(new org.netbeans.lib.awtextra.AbsoluteLayout());
 
         jPanel2.setFont(new java.awt.Font("Dubai", 1, 14)); // NOI18N
+        jPanel2.setMinimumSize(new java.awt.Dimension(146, 233));
 
         javax.swing.GroupLayout jPanel2Layout = new javax.swing.GroupLayout(jPanel2);
         jPanel2.setLayout(jPanel2Layout);
         jPanel2Layout.setHorizontalGroup(
             jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGap(0, 146, Short.MAX_VALUE)
+            .addGap(0, 263, Short.MAX_VALUE)
         );
         jPanel2Layout.setVerticalGroup(
             jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -96,26 +149,49 @@ public class ArchivarEvento extends javax.swing.JDialog {
 
         jScrollPane1.setViewportView(jPanel2);
 
+        jPanel3.add(jScrollPane1, new org.netbeans.lib.awtextra.AbsoluteConstraints(10, 115, -1, 220));
+
+        jLabel2.setBackground(new java.awt.Color(255, 255, 255));
+        jLabel2.setFont(new java.awt.Font("Dubai", 1, 18)); // NOI18N
+        jLabel2.setForeground(new java.awt.Color(51, 51, 51));
+        jLabel2.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
+        jLabel2.setText("Seleccione los Eventos a Archivar:");
+        jPanel3.add(jLabel2, new org.netbeans.lib.awtextra.AbsoluteConstraints(10, 40, -1, 21));
+
         javax.swing.GroupLayout jPanel1Layout = new javax.swing.GroupLayout(jPanel1);
         jPanel1.setLayout(jPanel1Layout);
         jPanel1Layout.setHorizontalGroup(
             jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(jPanel1Layout.createSequentialGroup()
-                .addComponent(jLabel2, javax.swing.GroupLayout.PREFERRED_SIZE, 391, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addGap(0, 0, Short.MAX_VALUE))
-            .addGroup(jPanel1Layout.createSequentialGroup()
-                .addGap(75, 75, 75)
-                .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 148, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addGap(25, 25, 25)
+                .addComponent(jPanel3, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addGap(86, 86, 86)
+                .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel1Layout.createSequentialGroup()
+                        .addComponent(jLabel3)
+                        .addGap(27, 27, 27))
+                    .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                        .addComponent(jLabel4)
+                        .addComponent(jFileChooser1, javax.swing.GroupLayout.PREFERRED_SIZE, 562, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addComponent(jButton1, javax.swing.GroupLayout.PREFERRED_SIZE, 155, javax.swing.GroupLayout.PREFERRED_SIZE)))
                 .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
         );
         jPanel1Layout.setVerticalGroup(
             jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(jPanel1Layout.createSequentialGroup()
+                .addGap(50, 50, 50)
+                .addComponent(jLabel3, javax.swing.GroupLayout.PREFERRED_SIZE, 21, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 10, Short.MAX_VALUE)
+                .addComponent(jFileChooser1, javax.swing.GroupLayout.PREFERRED_SIZE, 235, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addComponent(jLabel4, javax.swing.GroupLayout.PREFERRED_SIZE, 21, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addGap(26, 26, 26)
+                .addComponent(jButton1)
+                .addGap(30, 30, 30))
+            .addGroup(jPanel1Layout.createSequentialGroup()
                 .addContainerGap()
-                .addComponent(jLabel2, javax.swing.GroupLayout.PREFERRED_SIZE, 21, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addGap(18, 18, 18)
-                .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 235, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addContainerGap(29, Short.MAX_VALUE))
+                .addComponent(jPanel3, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
         );
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
@@ -123,12 +199,9 @@ public class ArchivarEvento extends javax.swing.JDialog {
         layout.setHorizontalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(layout.createSequentialGroup()
-                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addGroup(layout.createSequentialGroup()
-                        .addContainerGap()
-                        .addComponent(jLabel1, javax.swing.GroupLayout.DEFAULT_SIZE, 870, Short.MAX_VALUE))
-                    .addComponent(jPanel1, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
-                .addContainerGap())
+                .addContainerGap()
+                .addComponent(jLabel1, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+            .addComponent(jPanel1, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -137,11 +210,62 @@ public class ArchivarEvento extends javax.swing.JDialog {
                 .addComponent(jLabel1, javax.swing.GroupLayout.PREFERRED_SIZE, 21, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addComponent(jPanel1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addContainerGap(104, Short.MAX_VALUE))
+                .addContainerGap(171, Short.MAX_VALUE))
         );
 
         pack();
     }// </editor-fold>//GEN-END:initComponents
+    
+    private void jButton1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton1ActionPerformed
+        if(listadecheckboxes.isEmpty()){
+            JOptionPane.showMessageDialog(this, "No Se Han Creado Eventos!!!","Error",JOptionPane.ERROR_MESSAGE);
+            this.dispose();
+        }
+        else{
+            for(JCheckBox c: listadecheckboxes){
+                if(c.isSelected()){
+                    String txt = c.getText();
+                // Aca cojo un subString desde el primer caracter a donde encuentre el punto que es donde
+                // termina el numero y lo convierto a int.
+                    int id = Integer.parseInt(txt.substring(0, txt.indexOf(".")));
+                    ids.add(id-1);
+                }
+                
+            }
+        try {
+            archiver.writeFile(Pathselectedfile, ids);    
+        } 
+        catch (IOException ex) {
+            JOptionPane.showMessageDialog(this, "No se ha seleccionado el archivo","Error",JOptionPane.ERROR_MESSAGE);
+            Logger.getLogger(ArchivarEvento.class.getName()).log(Level.SEVERE, null, ex);
+            this.dispose();
+        }
+          catch(NullPointerException e){
+            JOptionPane.showMessageDialog(this, "No Se Han Creado Eventos!!!","Error",JOptionPane.ERROR_MESSAGE);
+            this.dispose();
+        }
+        finally{
+        JOptionPane.showMessageDialog(this, "Se han Archivado los elementos Seleccionados","Exito",JOptionPane.INFORMATION_MESSAGE);
+        this.dispose();
+        }
+        }
+        
+    }//GEN-LAST:event_jButton1ActionPerformed
+
+    
+    
+    private void jFileChooser1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jFileChooser1ActionPerformed
+        String command = evt.getActionCommand();
+        if(command.equals(JFileChooser.APPROVE_SELECTION)){
+        
+            JOptionPane.showMessageDialog(this, "Archivo Seleccionado","Exito",JOptionPane.INFORMATION_MESSAGE);
+            Pathselectedfile = jFileChooser1.getSelectedFile().getAbsolutePath();
+        }
+        else if(command.equals(JFileChooser.ERROR_OPTION)){
+            JOptionPane.showMessageDialog(this, "Archivo Incorrecto","Error",JOptionPane.ERROR_MESSAGE);
+        
+        }
+    }//GEN-LAST:event_jFileChooser1ActionPerformed
 
     /**
      * @param args the command line arguments
@@ -186,11 +310,15 @@ public class ArchivarEvento extends javax.swing.JDialog {
     }
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
-    private javax.swing.ButtonGroup buttonGroup1;
+    private javax.swing.JButton jButton1;
+    private javax.swing.JFileChooser jFileChooser1;
     private javax.swing.JLabel jLabel1;
     private javax.swing.JLabel jLabel2;
+    private javax.swing.JLabel jLabel3;
+    private javax.swing.JLabel jLabel4;
     private javax.swing.JPanel jPanel1;
     private javax.swing.JPanel jPanel2;
+    private javax.swing.JPanel jPanel3;
     private javax.swing.JScrollPane jScrollPane1;
     // End of variables declaration//GEN-END:variables
 }

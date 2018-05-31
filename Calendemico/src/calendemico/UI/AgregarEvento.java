@@ -288,8 +288,10 @@ public class AgregarEvento extends javax.swing.JDialog {
             
             boolean isValidEvent = mainclass.createEvent(name,tipo,date,hr,min);
             if (isValidEvent){
-                JOptionPane.showMessageDialog(this, "Has Agregado un Evento, cierra la ventana para Actualizar los Datos", "Exito", JOptionPane.INFORMATION_MESSAGE);
-                }
+                JOptionPane.showMessageDialog(this, "Has Agregado un Evento!!!", "Exito", JOptionPane.INFORMATION_MESSAGE);
+                this.dispose();    
+            }
+            
             else{
                 JOptionPane.showMessageDialog(this, "Datos Incorrectos", "Error", 0);
                 this.dispose();

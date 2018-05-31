@@ -4,6 +4,7 @@ package calendemico.Data;
 
 
 
+import java.text.SimpleDateFormat;
 import java.util.*;
 
 public class Evento {
@@ -49,6 +50,12 @@ public class Evento {
 
     public void setId(int i) {
         this.id = i;
+    }
+
+    @Override
+    public String toString() {
+        SimpleDateFormat format = new SimpleDateFormat("EEEE, d 'de' MMMM 'del' yyyy 'con alarma para las' hh':'mm' 'a"); 
+        return "Evento( " + "Id:" + id + ", Nombre: " + nombre + ", Tipo: " + tipo + ", Fecha: " + format.format(d) + " )";
     }
 
     
