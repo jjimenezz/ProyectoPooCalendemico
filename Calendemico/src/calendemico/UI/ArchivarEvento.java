@@ -74,6 +74,7 @@ public class ArchivarEvento extends javax.swing.JDialog {
         jLabel3.setVisible(false);
         jLabel4.setVisible(false);
         jButton1.setVisible(false);
+        pack();
         }
     }
 
