@@ -7,6 +7,7 @@ package calendemico.UI;
 
 import calendemico.Data.Evento;
 import calendemico.LogicBusiness.EventManager;
+import static calendemico.UI.MainFrame.listadeeventos;
 import com.toedter.calendar.JDayChooser;
 import java.awt.Toolkit;
 import de.javasoft.plaf.synthetica.SyntheticaAluOxideLookAndFeel;
@@ -38,7 +39,7 @@ public class MainFrame extends javax.swing.JFrame {
      */
     EventManager mainclass = new EventManager();
     static ArrayList<Evento> listadeeventos = new ArrayList(){};
-    static DefaultTableModel model;
+    private static DefaultTableModel model;
     
     
     
@@ -48,19 +49,7 @@ public class MainFrame extends javax.swing.JFrame {
         initComponents();
         setIcon();
         setExtendedState(MAXIMIZED_BOTH);
-  
-        
-        
-        Object[][] Eventos = mainclass.showEvents();
-        DefaultTableModel model2 = new javax.swing.table.DefaultTableModel(Eventos,new String [] {"ID","Nombre", "Tipo de Evento", "Fecha", "Alarma"});
-        model = model2;
-        jTable2.setModel(model);
-        jTable2.getTableHeader().setBackground(new Color(150,150,150));
-        jTable2.getTableHeader().setFont(new Font("Dubai",1,14));
-        
-
-        
-        
+        createTable();
         jCalendar1.getDayChooser().setDayBordersVisible(false);
         jCalendar1.getDayChooser().getDayPanel().setBackground(new Color(250,250,250));
         
@@ -293,6 +282,22 @@ public class MainFrame extends javax.swing.JFrame {
         pack();
     }// </editor-fold>//GEN-END:initComponents
 
+    
+    private void createTable(){
+     String[] titles = {"ID","Nombre", "Tipo de Evento", "Fecha", "Alarma"};
+    Object[][] Eventos = mainclass.showEvents();
+        DefaultTableModel model2 = new DefaultTableModel(Eventos,titles){
+        
+        };
+        model = model2;
+        jTable2.setModel(model);
+        jTable2.getTableHeader().setBackground(new Color(150,150,150));
+        jTable2.getTableHeader().setFont(new Font("Dubai",1,14));
+        
+    
+    
+    }
+    
     private void btnDeleteActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnDeleteActionPerformed
         EliminarEvento d;
         d = new EliminarEvento(this,true);
@@ -323,9 +328,17 @@ public class MainFrame extends javax.swing.JFrame {
     private void windowIsClosed(WindowEvent e){
     Object[][] Eventos = mainclass.showEvents();
     listadeeventos = EventManager.getListadeeventos();
-    DefaultTableModel model2 = new javax.swing.table.DefaultTableModel(Eventos,new String [] {"ID","Nombre", "Tipo de Evento", "Fecha", "Alarma"});
+    DefaultTableModel model2 = new javax.swing.table.DefaultTableModel(Eventos,new String [] {"ID","Nombre", "Tipo de Evento", "Fecha", "Alarma"}){
+        @Override
+        public boolean isCellEditable(int filas,int columnas){
+        return false;
+        }
+        
+    };
     jTable2.setModel(model2);
     if(!listadeeventos.isEmpty()){
+        
+        
         Date d = listadeeventos.get(listadeeventos.size()-1).getEventDate();
         jCalendar1.setDate(d);
         

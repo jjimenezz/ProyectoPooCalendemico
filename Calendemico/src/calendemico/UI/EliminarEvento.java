@@ -31,7 +31,13 @@ public class EliminarEvento extends javax.swing.JDialog {
         jTable2.setModel(new javax.swing.table.DefaultTableModel(Eventos,
     new String [] {"ID",
         "Nombre", "Tipo de Evento", "Fecha", "Alarma"
-    }));
+    }){
+        @Override
+        public boolean isCellEditable(int filas,int columnas){
+        return false;
+        }
+        
+    });
         jTable2.getTableHeader().setBackground(new Color(150,150,150));
         jTable2.getTableHeader().setFont(new Font("Dubai",1,14));
         DeleteButton.setEnabled(false);

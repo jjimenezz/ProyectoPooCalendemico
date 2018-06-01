@@ -5,12 +5,14 @@
  */
 package calendemico.UI;
 
+import calendemico.Data.Evento;
 import calendemico.LogicBusiness.EventManager;
 
 import java.awt.Color;
 import java.awt.Font;
 import java.awt.event.MouseAdapter;
 import java.awt.event.MouseEvent;
+import java.util.ArrayList;
 import java.util.Date;
 import javax.swing.JOptionPane;
 import javax.swing.JSpinner;
@@ -22,8 +24,11 @@ import javax.swing.JSpinner;
 public class EditarEvento extends javax.swing.JDialog {
 
     EventManager mainclass = new EventManager();
+    ArrayList<Evento> listadeeventos = EventManager.getListadeeventos();
     int id;
     String name;
+    String type;
+    Date dateevent;
     /**
      * 
      * Creates new form JDialog1
@@ -35,10 +40,17 @@ public class EditarEvento extends javax.swing.JDialog {
         setTitle("Editar Evento");
         setLocationRelativeTo(null);
          Object[][] Eventos = mainclass.showEvents();
+        
         jTable2.setModel(new javax.swing.table.DefaultTableModel(Eventos,
     new String [] {"ID",
         "Nombre", "Tipo de Evento", "Fecha", "Alarma"
-    }));
+    }){
+        @Override
+        public boolean isCellEditable(int filas,int columnas){
+        return false;
+        }
+        
+    });
         jDateChooser1.setMinSelectableDate(d);
         jSpinner2.setVisible(false);
         jSpinner3.setVisible(false);
@@ -159,7 +171,7 @@ public class EditarEvento extends javax.swing.JDialog {
         jPanel2.add(jLabel3, new org.netbeans.lib.awtextra.AbsoluteConstraints(280, 40, 157, 20));
 
         jComboBox1.setFont(new java.awt.Font("Dubai", 1, 14)); // NOI18N
-        jComboBox1.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "Examen", "Conferencia", "Tema", "Proyecto", "Tarea" }));
+        jComboBox1.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "Examen", "Conferencia", "Tema", "Proyecto", "Tarea", "Otro..." }));
         jComboBox1.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 jComboBox1ActionPerformed(evt);
@@ -278,7 +290,16 @@ public class EditarEvento extends javax.swing.JDialog {
         int i = jTable2.getSelectedRow();
         id = Integer.parseInt(jTable2.getValueAt(i, 0).toString());
         name = jTable2.getValueAt(i, 1).toString();
+        type = jTable2.getValueAt(i, 2).toString();
+        dateevent = listadeeventos.get(id-1).getEventDate();
         jTextField1.setText(name);
+        jComboBox1.setSelectedItem(type);
+        jDateChooser1.setDate(dateevent);
+        jSpinner2.setValue(dateevent.getHours());
+        jSpinner3.setValue(dateevent.getMinutes());
+        jCheckBox1.setSelected(true);
+        jSpinner2.setVisible(true);
+        jSpinner3.setVisible(true);
         NotificateEditEvent.setText("Evento "+(i+1)+" Seleccionado!!!");
         
         }

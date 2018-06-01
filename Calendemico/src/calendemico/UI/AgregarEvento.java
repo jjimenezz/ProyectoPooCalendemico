@@ -137,7 +137,7 @@ public class AgregarEvento extends javax.swing.JDialog {
         jLabel3.setText("Tipo");
 
         jComboBox1.setFont(new java.awt.Font("Dubai", 1, 14)); // NOI18N
-        jComboBox1.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "Examen", "Conferencia", "Tema", "Proyecto", "Tarea" }));
+        jComboBox1.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "Examen", "Conferencia", "Tema", "Proyecto", "Tarea", "Otro..." }));
         jComboBox1.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 jComboBox1ActionPerformed(evt);
@@ -294,8 +294,6 @@ public class AgregarEvento extends javax.swing.JDialog {
             
             else{
                 JOptionPane.showMessageDialog(this, "Datos Incorrectos", "Error", 0);
-                this.dispose();
-                
             }
             
         

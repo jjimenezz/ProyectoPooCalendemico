@@ -1,0 +1,1 @@
+Evento( Id:1, Nombre: Fin de Clases, Tipo: Tema, Fecha: miércoles, 20 de junio del 2018 con alarma para las 04:30 PM )
