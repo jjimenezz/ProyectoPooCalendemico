@@ -94,6 +94,8 @@ public class MainFrame extends javax.swing.JFrame {
         btnDelete = new javax.swing.JMenuItem();
         menuArchiveEvent = new javax.swing.JMenu();
         btnArchive = new javax.swing.JMenuItem();
+        menuUploadEvent = new javax.swing.JMenu();
+        btnUpload = new javax.swing.JMenuItem();
 
         jTable1.setModel(new javax.swing.table.DefaultTableModel(
             new Object [][] {
@@ -198,6 +200,7 @@ public class MainFrame extends javax.swing.JFrame {
 
         jMenuBar1.setBackground(new java.awt.Color(55, 55, 55));
         jMenuBar1.setForeground(new java.awt.Color(153, 153, 153));
+        jMenuBar1.setToolTipText("MenuCalendemico");
         jMenuBar1.setFont(new java.awt.Font("Dubai", 1, 18)); // NOI18N
 
         btnHome.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Icons/casa.png"))); // NOI18N
@@ -262,7 +265,7 @@ public class MainFrame extends javax.swing.JFrame {
         jMenuBar1.add(menuRemoveEvent);
 
         menuArchiveEvent.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Icons/folder.png"))); // NOI18N
-        menuArchiveEvent.setText("Archivar Evento");
+        menuArchiveEvent.setText("Archivar Eventos");
         menuArchiveEvent.setFont(new java.awt.Font("Dubai", 1, 14)); // NOI18N
 
         btnArchive.setFont(new java.awt.Font("Dubai", 1, 14)); // NOI18N
@@ -276,6 +279,22 @@ public class MainFrame extends javax.swing.JFrame {
         menuArchiveEvent.add(btnArchive);
 
         jMenuBar1.add(menuArchiveEvent);
+
+        menuUploadEvent.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Icons/folder.png"))); // NOI18N
+        menuUploadEvent.setText("Cargar Eventos");
+        menuUploadEvent.setFont(new java.awt.Font("Dubai", 1, 14)); // NOI18N
+
+        btnUpload.setFont(new java.awt.Font("Dubai", 1, 14)); // NOI18N
+        btnUpload.setText("Cargar..");
+        btnDelete.setFont(new Font("Dubai",1,14));
+        btnUpload.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btnUploadActionPerformed(evt);
+            }
+        });
+        menuUploadEvent.add(btnUpload);
+
+        jMenuBar1.add(menuUploadEvent);
 
         setJMenuBar(jMenuBar1);
 
@@ -380,6 +399,18 @@ public class MainFrame extends javax.swing.JFrame {
         
     }//GEN-LAST:event_btnArchiveActionPerformed
 
+    private void btnUploadActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnUploadActionPerformed
+       CargarEvento d;
+        d = new CargarEvento(this,true);
+        d.setVisible(true);
+        d.addWindowListener(new WindowAdapter() {
+            @Override
+            public void windowClosed(WindowEvent e) {
+                windowIsClosed(e);
+            }
+        }); 
+    }//GEN-LAST:event_btnUploadActionPerformed
+
     /**
      * @param args the command line arguments
      */
@@ -415,6 +446,7 @@ public class MainFrame extends javax.swing.JFrame {
     private javax.swing.JMenuItem btnDelete;
     private javax.swing.JMenuItem btnEditEvent;
     private javax.swing.JMenu btnHome;
+    private javax.swing.JMenuItem btnUpload;
     private javax.swing.JButton jButton2;
     private com.toedter.calendar.JCalendar jCalendar1;
     private javax.swing.JLabel jLabel1;
@@ -436,6 +468,7 @@ public class MainFrame extends javax.swing.JFrame {
     private javax.swing.JMenu menuArchiveEvent;
     private javax.swing.JMenu menuEditEvent;
     private javax.swing.JMenu menuRemoveEvent;
+    private javax.swing.JMenu menuUploadEvent;
     // End of variables declaration//GEN-END:variables
 
     private void setIcon() {

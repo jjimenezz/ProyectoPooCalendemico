@@ -55,7 +55,7 @@ public class Evento {
     @Override
     public String toString() {
         SimpleDateFormat format = new SimpleDateFormat("EEEE, d 'de' MMMM 'del' yyyy 'con alarma para las' hh':'mm' 'a"); 
-        return "Evento( " + "Id:" + id + ", Nombre: " + nombre + ", Tipo: " + tipo + ", Fecha: " + format.format(d) + " )";
+        return "∏°°" +  id + "∏" + nombre + "∏" + tipo + "∏" +format.format(d);
     }
 
     

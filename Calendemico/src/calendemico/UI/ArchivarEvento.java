@@ -45,6 +45,7 @@ public class ArchivarEvento extends javax.swing.JDialog {
     public ArchivarEvento(java.awt.Frame parent, boolean modal) {
         super(parent, modal);
         initComponents();
+        
         this.Pathselectedfile = jFileChooser1.getSelectedFile().getAbsolutePath();
         FileFilter filter = new FileNameExtensionFilter("Text File","txt");
         jFileChooser1.setFileFilter(filter);
@@ -52,6 +53,7 @@ public class ArchivarEvento extends javax.swing.JDialog {
         
         setTitle("Archivar Evento");
         jPanel2.setLayout(new GridLayout(listadeeventos.size()+1,1));
+        setLocationRelativeTo(null);
         if(!listadeeventos.isEmpty()){
         for(Evento e: listadeeventos){
             String namebtn = "";
@@ -69,6 +71,9 @@ public class ArchivarEvento extends javax.swing.JDialog {
         nothing.setFont(new java.awt.Font("Dubai", 1, 24));
         jPanel2.add(nothing);
         jFileChooser1.setVisible(false);
+        jLabel3.setVisible(false);
+        jLabel4.setVisible(false);
+        jButton1.setVisible(false);
         }
     }
 
@@ -111,7 +116,7 @@ public class ArchivarEvento extends javax.swing.JDialog {
         jFileChooser1.setAcceptAllFileFilterUsed(false);
         jFileChooser1.setDialogTitle("");
         jFileChooser1.setFont(new java.awt.Font("Dubai", 1, 14)); // NOI18N
-        jFileChooser1.setSelectedFile(new java.io.File("C:\\Users\\danie\\Documents\\NetBeansProjects\\ProyectoPooCalendemico\\Calendemico\\src\\Output\\output.txt"));
+        jFileChooser1.setSelectedFile(new java.io.File("C:\\Users\\danie\\Documents\\NetBeansProjects\\ProyectoPooCalendemico\\Calendemico\\src\\EventArchivesFolder\\ArchivoDeEventos.txt"));
         jFileChooser1.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 jFileChooser1ActionPerformed(evt);
@@ -222,6 +227,7 @@ public class ArchivarEvento extends javax.swing.JDialog {
             this.dispose();
         }
         else{
+            
             for(JCheckBox c: listadecheckboxes){
                 if(c.isSelected()){
                     String txt = c.getText();
@@ -229,9 +235,15 @@ public class ArchivarEvento extends javax.swing.JDialog {
                 // termina el numero y lo convierto a int.
                     int id = Integer.parseInt(txt.substring(0, txt.indexOf(".")));
                     ids.add(id-1);
+                    
                 }
+               
                 
             }
+        if(ids.isEmpty()){
+        JOptionPane.showMessageDialog(this, "No se han seleccionado Eventos","Error",JOptionPane.ERROR_MESSAGE);
+        }
+        else{
         try {
             archiver.writeFile(Pathselectedfile, ids);    
         } 
@@ -249,7 +261,7 @@ public class ArchivarEvento extends javax.swing.JDialog {
         this.dispose();
         }
         }
-        
+        }
     }//GEN-LAST:event_jButton1ActionPerformed
 
     
