@@ -30,7 +30,7 @@ public class EliminarEvento extends javax.swing.JDialog {
         Object[][] Eventos = mainclass.showEvents();
         jTable2.setModel(new javax.swing.table.DefaultTableModel(Eventos,
     new String [] {"ID",
-        "Nombre", "Tipo de Evento", "Fecha", "Alarma"
+        "Nombre", "Tipo de Evento", "Fecha", "Hora"
     }){
         @Override
         public boolean isCellEditable(int filas,int columnas){

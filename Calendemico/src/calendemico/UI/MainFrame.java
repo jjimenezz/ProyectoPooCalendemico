@@ -19,7 +19,9 @@ import java.text.ParseException;
 
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
+import java.util.Timer;
 import java.util.Date;
+import java.util.TimerTask;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 import javax.swing.UIManager;
@@ -40,6 +42,9 @@ public class MainFrame extends javax.swing.JFrame {
     EventManager mainclass = new EventManager();
     static ArrayList<Evento> listadeeventos = new ArrayList(){};
     private static DefaultTableModel model;
+
+    
+   
     
     
     
@@ -55,7 +60,6 @@ public class MainFrame extends javax.swing.JFrame {
         
         jCalendar1.getMonthChooser().setFont(new Font("Dubai",1,14));
         jCalendar1.setBorder(new EmptyBorder(5,5,5,5));
-       
     }
     
 
@@ -265,11 +269,11 @@ public class MainFrame extends javax.swing.JFrame {
         jMenuBar1.add(menuRemoveEvent);
 
         menuArchiveEvent.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Icons/folder.png"))); // NOI18N
-        menuArchiveEvent.setText("Archivar Eventos");
+        menuArchiveEvent.setText("Guardar Eventos");
         menuArchiveEvent.setFont(new java.awt.Font("Dubai", 1, 14)); // NOI18N
 
         btnArchive.setFont(new java.awt.Font("Dubai", 1, 14)); // NOI18N
-        btnArchive.setText("Archivar...");
+        btnArchive.setText("Guardar...");
         btnDelete.setFont(new Font("Dubai",1,14));
         btnArchive.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
@@ -303,7 +307,7 @@ public class MainFrame extends javax.swing.JFrame {
 
     
     private void createTable(){
-     String[] titles = {"ID","Nombre", "Tipo de Evento", "Fecha", "Alarma"};
+     String[] titles = {"ID","Nombre", "Tipo de Evento", "Fecha", "Hora"};
     Object[][] Eventos = mainclass.showEvents();
         DefaultTableModel model2 = new DefaultTableModel(Eventos,titles){
         
@@ -316,7 +320,7 @@ public class MainFrame extends javax.swing.JFrame {
     
     
     }
-    
+  
     private void btnDeleteActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnDeleteActionPerformed
         EliminarEvento d;
         d = new EliminarEvento(this,true);

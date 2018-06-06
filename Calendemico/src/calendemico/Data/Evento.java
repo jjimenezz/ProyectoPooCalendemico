@@ -7,7 +7,7 @@ package calendemico.Data;
 import java.text.SimpleDateFormat;
 import java.util.*;
 
-public class Evento {
+public class Evento implements Comparable<Evento> {
     int id;
     String nombre;
     String tipo;
@@ -19,7 +19,7 @@ public class Evento {
         this.d = d;
         this.id = id;
     }
-
+    
     public int getId() {
         return id;
     }
@@ -56,6 +56,11 @@ public class Evento {
     public String toString() {
         SimpleDateFormat format = new SimpleDateFormat("EEEE, d 'de' MMMM 'del' yyyy 'con alarma para las' hh':'mm' 'a"); 
         return "∏°°" +  id + "∏" + nombre + "∏" + tipo + "∏" +format.format(d);
+    }
+
+    @Override
+    public int compareTo(Evento t) {
+        return d.compareTo(t.getEventDate());
     }
 
     

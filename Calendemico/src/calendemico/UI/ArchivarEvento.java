@@ -51,7 +51,7 @@ public class ArchivarEvento extends javax.swing.JDialog {
         jFileChooser1.setFileFilter(filter);
         jFileChooser1.setApproveButtonText("Seleccionar");
         
-        setTitle("Archivar Evento");
+        setTitle("Guardar Evento");
         jPanel2.setLayout(new GridLayout(listadeeventos.size()+1,1));
         setLocationRelativeTo(null);
         if(!listadeeventos.isEmpty()){
@@ -104,7 +104,7 @@ public class ArchivarEvento extends javax.swing.JDialog {
         jLabel1.setFont(new java.awt.Font("Dubai", 1, 24)); // NOI18N
         jLabel1.setForeground(new java.awt.Color(51, 51, 51));
         jLabel1.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
-        jLabel1.setText("Archivar Evento");
+        jLabel1.setText("Guardar Evento");
 
         jButton1.setFont(new java.awt.Font("Dubai", 1, 14)); // NOI18N
         jButton1.setText("Confirmar Datos");
@@ -161,7 +161,7 @@ public class ArchivarEvento extends javax.swing.JDialog {
         jLabel2.setFont(new java.awt.Font("Dubai", 1, 18)); // NOI18N
         jLabel2.setForeground(new java.awt.Color(51, 51, 51));
         jLabel2.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
-        jLabel2.setText("Seleccione los Eventos a Archivar:");
+        jLabel2.setText("Seleccione los Eventos a Guardar:");
         jPanel3.add(jLabel2, new org.netbeans.lib.awtextra.AbsoluteConstraints(10, 40, -1, 21));
 
         javax.swing.GroupLayout jPanel1Layout = new javax.swing.GroupLayout(jPanel1);
