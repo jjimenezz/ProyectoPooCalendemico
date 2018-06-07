@@ -9,7 +9,6 @@ import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.Calendar;
 import java.util.Collections;
-import java.util.Comparator;
 import java.util.Date;
 import java.util.GregorianCalendar;
 import javax.swing.UnsupportedLookAndFeelException;
@@ -21,6 +20,7 @@ import javax.swing.UnsupportedLookAndFeelException;
 public class EventManager {
     
     static ArrayList<Evento> listadeeventos = new ArrayList<>();
+    
 
     /**
      * @param args the command line arguments
@@ -35,7 +35,7 @@ public class EventManager {
        return listadeeventos;
     }
 
-    public boolean createEvent(String name, String tipo, Date d, int hr, int min){
+    public boolean createEvent(String name, String tipo, Date d, int hr, int min) throws UnsupportedLookAndFeelException{
     if(name == null||tipo == null||d == null||hr >= 24 || min >= 60){
         return false;
     }   
@@ -59,7 +59,7 @@ public class EventManager {
         }
     
     }
-    public boolean editEvent(int id ,String name, String tipo, Date d, int hr, int min){
+    public boolean editEvent(int id ,String name, String tipo, Date d, int hr, int min) throws UnsupportedLookAndFeelException{
     if(name == null||tipo == null||d == null||hr >= 24 || min >= 60){
         return false;
     }   
@@ -84,8 +84,8 @@ public class EventManager {
        }
         organizateArrayList();
     }
-    public Date setAlarm(Date d, int hr, int min){
-    
+    public Date setAlarm(Date d, int hr, int min) throws UnsupportedLookAndFeelException{
+
     GregorianCalendar g = new GregorianCalendar();
     g.setTime(d);
     g.set(Calendar.HOUR, hr-12);

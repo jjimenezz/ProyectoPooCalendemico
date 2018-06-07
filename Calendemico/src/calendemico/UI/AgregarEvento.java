@@ -6,6 +6,7 @@
 package calendemico.UI;
 
 import calendemico.LogicBusiness.EventManager;
+
 import java.awt.Frame;
 import static java.awt.Frame.MAXIMIZED_BOTH;
 import java.awt.GraphicsConfiguration;
@@ -278,6 +279,7 @@ public class AgregarEvento extends javax.swing.JDialog {
     }//GEN-LAST:event_jComboBox1ActionPerformed
 
     private void jButton1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton1ActionPerformed
+        try {
             String name = jTextField1.getText();
             String tipo =  jComboBox1.getSelectedItem().toString();
             Date date = jDateChooser1.getDate();
@@ -286,7 +288,7 @@ public class AgregarEvento extends javax.swing.JDialog {
             int min = (int)jSpinner3.getValue();
 
             EventManager mainclass = new EventManager();
-          
+            
             
             boolean isValidEvent = mainclass.createEvent(name,tipo,date,hr,min);
             if (isValidEvent){
@@ -297,6 +299,9 @@ public class AgregarEvento extends javax.swing.JDialog {
             else{
                 JOptionPane.showMessageDialog(this, "Datos Incorrectos", "Error", 0);
             }
+        } catch (UnsupportedLookAndFeelException ex) {
+            Logger.getLogger(AgregarEvento.class.getName()).log(Level.SEVERE, null, ex);
+        }
    
         
     }//GEN-LAST:event_jButton1ActionPerformed

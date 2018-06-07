@@ -14,8 +14,11 @@ import java.awt.event.MouseAdapter;
 import java.awt.event.MouseEvent;
 import java.util.ArrayList;
 import java.util.Date;
+import java.util.logging.Level;
+import java.util.logging.Logger;
 import javax.swing.JOptionPane;
 import javax.swing.JSpinner;
+import javax.swing.UnsupportedLookAndFeelException;
 
 /**
  *
@@ -338,6 +341,8 @@ public class EditarEvento extends javax.swing.JDialog {
 
             JOptionPane.showMessageDialog(this, "No has escogido un Evento!!!", "Error", 0);
             this.dispose();
+        } catch (UnsupportedLookAndFeelException ex) {
+            Logger.getLogger(EditarEvento.class.getName()).log(Level.SEVERE, null, ex);
         }
     }//GEN-LAST:event_jButton1ActionPerformed
 

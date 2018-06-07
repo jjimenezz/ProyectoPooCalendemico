@@ -16,12 +16,12 @@ import java.awt.Font;
 import java.awt.event.WindowAdapter;
 import java.awt.event.WindowEvent;
 import java.text.ParseException;
-
-import java.text.SimpleDateFormat;
 import java.util.ArrayList;
-import java.util.Timer;
+import java.util.Calendar;
+
 import java.util.Date;
-import java.util.TimerTask;
+import java.util.GregorianCalendar;
+
 import java.util.logging.Level;
 import java.util.logging.Logger;
 import javax.swing.UIManager;
@@ -42,7 +42,7 @@ public class MainFrame extends javax.swing.JFrame {
     EventManager mainclass = new EventManager();
     static ArrayList<Evento> listadeeventos = new ArrayList(){};
     private static DefaultTableModel model;
-
+    Date alarm;
     
    
     
@@ -60,7 +60,16 @@ public class MainFrame extends javax.swing.JFrame {
         
         jCalendar1.getMonthChooser().setFont(new Font("Dubai",1,14));
         jCalendar1.setBorder(new EmptyBorder(5,5,5,5));
+        jLabel4.setFont(new Font("Dubai",1,34));
+        jLabel4.setForeground(Color.WHITE);
+        clockLabel();
+        
     }
+
+    public void setAlarm(Date alarm) {
+        this.alarm = alarm;
+    }
+    
     
 
     /**
@@ -87,6 +96,7 @@ public class MainFrame extends javax.swing.JFrame {
         jScrollPane3 = new javax.swing.JScrollPane();
         jTable2 = new javax.swing.JTable();
         jLayeredPane1 = new javax.swing.JLayeredPane();
+        jLabel4 = new javax.swing.JLabel();
         jMenuBar1 = new javax.swing.JMenuBar();
         btnHome = new javax.swing.JMenu();
         menuAddEvent = new javax.swing.JMenu();
@@ -200,6 +210,11 @@ public class MainFrame extends javax.swing.JFrame {
 
         jPanel1.add(jPanel3, java.awt.BorderLayout.CENTER);
 
+        jLabel4.setHorizontalAlignment(javax.swing.SwingConstants.RIGHT);
+        jLabel4.setText("jLabel4");
+        jPanel1.add(jLabel4, java.awt.BorderLayout.PAGE_END);
+        jLabel4.getAccessibleContext().setAccessibleName("jL");
+
         getContentPane().add(jPanel1, java.awt.BorderLayout.CENTER);
 
         jMenuBar1.setBackground(new java.awt.Color(55, 55, 55));
@@ -306,6 +321,67 @@ public class MainFrame extends javax.swing.JFrame {
     }// </editor-fold>//GEN-END:initComponents
 
     
+    public void showAlarm(){
+    
+        JOptionPane.showMessageDialog(this, "Alarma Activada, se borrara el Evento","Alarma",JOptionPane.INFORMATION_MESSAGE);
+    
+    }
+    private void clockLabel() { 
+    GregorianCalendar calendario = new java.util.GregorianCalendar(); 
+    
+    javax.swing.Timer timer = new javax.swing.Timer(1000, new java.awt.event.ActionListener() { 
+    @ Override 
+    public void actionPerformed(java.awt.event.ActionEvent ae) { 
+        Date actual = new java.util.Date(); 
+        calendario.setTime(actual);
+        int dia = calendario.get(Calendar.DAY_OF_MONTH); 
+        int mes = (calendario.get(Calendar.MONTH) + 1); 
+        int año = calendario.get(Calendar.YEAR); 
+        int hora = calendario.get(Calendar.HOUR_OF_DAY); 
+        int minutos = calendario.get(Calendar.MINUTE); 
+        int segundos = calendario.get(Calendar.SECOND); 
+        String hour = String.format("%02d : %02d : %02d", hora, minutos, segundos); 
+        
+        jLabel4.setText(hour);
+        if(alarm != null){
+            calendario.setTime(alarm);
+            int dia2 = calendario.get(Calendar.DAY_OF_MONTH); 
+            int mes2 = (calendario.get(Calendar.MONTH) + 1); 
+            int año2 = calendario.get(Calendar.YEAR); 
+            int hora2 = calendario.get(Calendar.HOUR_OF_DAY); 
+            int min2 = calendario.get(Calendar.MINUTE); 
+            if((dia2 == dia)&&(mes2 == mes)&&(año2 == año)&&(hora2 == hora) && (min2 == minutos)){
+                showAlarm();
+                listadeeventos = (ArrayList<Evento>) EventManager.getListadeeventos().clone();
+                for(Evento e :listadeeventos){
+                
+                    if(alarm == e.getEventDate()){
+                    
+                    mainclass.deleteEvent(e.getId());
+                    
+                    }
+                
+                }
+                Object[][] Eventos = mainclass.showEvents();
+                DefaultTableModel model2 = new javax.swing.table.DefaultTableModel(Eventos,new String [] {"ID","Nombre", "Tipo de Evento", "Fecha", "Alarma"}){
+                @Override
+            public boolean isCellEditable(int filas,int columnas){
+             return false;
+                }
+        
+            };
+             jTable2.setModel(model2);
+             
+                repaint();
+                alarm = null;
+            }
+        
+        }
+        }     
+
+    }); 
+    timer.start();  
+} 
     private void createTable(){
      String[] titles = {"ID","Nombre", "Tipo de Evento", "Fecha", "Hora"};
     Object[][] Eventos = mainclass.showEvents();
@@ -320,7 +396,7 @@ public class MainFrame extends javax.swing.JFrame {
     
     
     }
-  
+
     private void btnDeleteActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnDeleteActionPerformed
         EliminarEvento d;
         d = new EliminarEvento(this,true);
@@ -363,6 +439,7 @@ public class MainFrame extends javax.swing.JFrame {
         
         
         Date d = listadeeventos.get(listadeeventos.size()-1).getEventDate();
+        alarm = d;
         jCalendar1.setDate(d);
         
         }
@@ -456,6 +533,7 @@ public class MainFrame extends javax.swing.JFrame {
     private javax.swing.JLabel jLabel1;
     private javax.swing.JLabel jLabel2;
     private javax.swing.JLabel jLabel3;
+    private javax.swing.JLabel jLabel4;
     private javax.swing.JLayeredPane jLayeredPane1;
     private javax.swing.JMenuBar jMenuBar1;
     private javax.swing.JPanel jPanel1;
